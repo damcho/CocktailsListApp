@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlatList, StyleSheet, View, ActivityIndicator } from "react-native";
-import { urlForQueryAndPage, requestCocktails } from "../../apiConnector";
+import { urlForCocktails, requestCocktails } from "../../apiConnector";
 import CocktailsListItem from "./CocktailsListItem";
 
 export default class CocktailsList extends Component<{}> {
@@ -31,7 +31,7 @@ export default class CocktailsList extends Component<{}> {
   };
 
   getCocktails() {
-    const query = urlForQueryAndPage("place_name", "", 1);
+    const query = urlForCocktails("place_name", "", 1);
     console.log(query);
     this.executeQuery(query);
   }
@@ -40,7 +40,8 @@ export default class CocktailsList extends Component<{}> {
     console.log("Pressed row: " + index);
     console.log(this.state.cocktails[index].strDrink);
     this.props.navigation.navigate("cocktailDetail", {
-      cocktailTitle: this.state.cocktails[index].strDrink
+      cocktailTitle: this.state.cocktails[index].strDrink,
+      cocktailId: this.state.cocktails[index].idDrink
     });
   };
 
