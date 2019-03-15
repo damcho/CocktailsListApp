@@ -55,7 +55,7 @@ export default class CocktailsList extends Component<{}> {
 
   render() {
     const spinner = this.state.isLoading ? (
-      <ActivityIndicator size="large" />
+      <ActivityIndicator size="large" style={styles.spinner} />
     ) : null;
 
     return (
@@ -72,7 +72,12 @@ export default class CocktailsList extends Component<{}> {
 }
 
 const styles = StyleSheet.create({
+  spinner: {
+    position: "absolute",
+    alignSelf: "center"
+  },
   container: {
-    flex: 1
+    flex: 1,
+    justifyContent: "center"
   }
 });

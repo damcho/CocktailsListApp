@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Text, Image, StyleSheet, View } from "react-native";
+import {
+  Text,
+  Image,
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  ScrollView,
+  Dimensions
+} from "react-native";
 import { urlForCocktailsDetail, requestCocktails } from "../../apiConnector";
 
 export default class CocktailDetail extends Component {
@@ -13,21 +21,38 @@ export default class CocktailDetail extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      cocktail: null
+      cocktailImageUri: null,
+      ingredients: null,
+      instructions: null
     };
     this.dataHandler = this.dataHandler.bind(this);
   }
 
   componentDidMount() {
-    console.log("detail");
     this.getCocktail();
   }
 
   dataHandler(data) {
-    this.setState({ cocktail: data.drinks[0], isLoading: false });
-    console.log(data.drinks[0]);
-    console.log(this.state.cocktail.strDrinkThumb);
-    //  console.log(this.state.cocktail);
+    const ingredients = this.createIngredients(data.drinks[0]);
+    this.setState({
+      ingredients: ingredients,
+      instructions: data.drinks[0].strInstructions,
+      isLoading: false,
+      cocktailImageUri: data.drinks[0].strDrinkThumb
+    });
+  }
+
+  createIngredients(data) {
+    const ingredientsArray = [];
+    for (let i = 0; i < 5; i++) {
+      let ingredientkey = "strIngredient" + i;
+      let amountkey = "strMeasure" + i;
+      if (data[amountkey] != null && data[amountkey] != "") {
+        let preparationIngredient = data[amountkey] + data[ingredientkey];
+        ingredientsArray.push(preparationIngredient);
+      }
+    }
+    return ingredientsArray;
   }
 
   executeQuery = query => {
@@ -38,45 +63,92 @@ export default class CocktailDetail extends Component {
   getCocktail() {
     const cocktailID = this.props.navigation.getParam("cocktailId");
     const query = urlForCocktailsDetail(cocktailID);
-    console.log(query);
     this.executeQuery(query);
   }
 
   render() {
-    const cocktailImage = this.state.cocktail ? (
+    const spinner = this.state.isLoading ? (
+      <ActivityIndicator size="large" style={styles.spinner} />
+    ) : null;
+
+    const cocktailImage = this.state.cocktailImageUri ? (
       <Image
-        style={{
-          flex: 1,
-          resizeMode: "contain"
-        }}
-        source={{ uri: this.state.cocktail.strDrinkThumb }}
+        resizeMode="contain"
+        style={styles.cocktailImage}
+        source={{ uri: this.state.cocktailImageUri }}
       />
     ) : null;
 
-    return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: "stretch",
-          justifyContent: "center",
-          backgroundColor: "#40e0d0"
-        }}
-      >
-        <View
-          style={{
-            flex: 1,
-            marginTop: 15,
-            marginRight: 15,
-            marginLeft: 15,
-            marginBottom: 15,
+    const ingredientsTitle =
+      this.state.ingredients != null ? <Text>Ingredients:</Text> : null;
+    const ingredientsList =
+      this.state.ingredients != null
+        ? this.state.ingredients.map(ingredient => {
+            return <Text>{ingredient}</Text>;
+          })
+        : null;
+    const instructionsTitle =
+      this.state.instructions != null ? <Text>Instructions:</Text> : null;
+    const instructions =
+      this.state.instructions != null ? (
+        <Text>{this.state.instructions}</Text>
+      ) : null;
 
-            backgroundColor: "#ffffff",
-            justifyContent: "center"
-          }}
+    return (
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollViewContent}
         >
           {cocktailImage}
-        </View>
+          <View style={styles.ingredientsContainer}>
+            {ingredientsTitle}
+            {ingredientsList}
+          </View>
+          <View style={styles.instructionsContainer}>
+            {instructionsTitle}
+            {instructions}
+          </View>
+        </ScrollView>
+        {spinner}
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  spinner: {
+    position: "absolute",
+    alignSelf: "center"
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#40e0d0",
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15
+  },
+  cocktailImage: {
+    height: 285
+  },
+  ingredientsContainer: {
+    flex: 1,
+    marginTop: 15
+  },
+  instructionsContainer: {
+    flex: 1,
+    marginTop: 15
+  },
+  scrollView: {
+    flex: 1
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    justifyContent: "space-between",
+    backgroundColor: "#ffffff"
+  }
+});
