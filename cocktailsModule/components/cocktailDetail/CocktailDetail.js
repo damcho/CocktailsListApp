@@ -8,6 +8,7 @@ import {
   ScrollView
 } from "react-native";
 import { urlForCocktailsDetail, requestCocktails } from "../../apiConnector";
+import AsyncImage from "../common/AsyncImage";
 
 export default class CocktailDetail extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -71,10 +72,12 @@ export default class CocktailDetail extends Component {
     ) : null;
 
     const cocktailImage = this.state.cocktailImageUri ? (
-      <Image
-        resizeMode="contain"
+      <AsyncImage
         style={styles.cocktailImage}
-        source={{ uri: this.state.cocktailImageUri }}
+        source={{
+          uri: this.state.cocktailImageUri
+        }}
+        placeholderColor="#b3e5fc"
       />
     ) : null;
 
@@ -130,7 +133,8 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   },
   cocktailImage: {
-    height: 285
+    height: 270,
+    width: 270
   },
   ingredientsContainer: {
     flex: 1,

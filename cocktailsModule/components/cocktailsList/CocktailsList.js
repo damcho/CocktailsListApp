@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FlatList, StyleSheet, View, ActivityIndicator } from "react-native";
 import { urlForCocktails, requestCocktails } from "../../apiConnector";
 import CocktailsListItem from "./CocktailsListItem";
+import AsyncImage from "../common/AsyncImage";
 
 export default class CocktailsList extends Component<{}> {
   static navigationOptions = {

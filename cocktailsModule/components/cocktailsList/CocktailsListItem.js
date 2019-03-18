@@ -6,6 +6,7 @@ import {
   View,
   Image
 } from "react-native";
+import AsyncImage from "../common/AsyncImage";
 
 export default class CocktailsListItem extends Component {
   onPress = () => {
@@ -18,7 +19,13 @@ export default class CocktailsListItem extends Component {
       <TouchableHighlight onPress={this.onPress} underlayColor="#dddddd">
         <View>
           <View style={styles.rowContainer}>
-            <Image style={styles.thumb} source={{ uri: item.strDrinkThumb }} />
+            <AsyncImage
+              style={styles.thumb}
+              source={{
+                uri: item.strDrinkThumb
+              }}
+              placeholderColor="#b3e5fc"
+            />
             <View style={styles.textContainer}>
               <Text style={styles.cocktailName}>{item.strDrink}</Text>
             </View>
