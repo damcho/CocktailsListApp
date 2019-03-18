@@ -5,7 +5,8 @@ import {
   StyleSheet,
   View,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
+  Alert
 } from "react-native";
 import { urlForCocktailsDetail, requestCocktails } from "../../apiConnector";
 import AsyncImage from "../common/AsyncImage";
@@ -33,13 +34,21 @@ export default class CocktailDetail extends Component {
   }
 
   dataHandler(data) {
-    const ingredients = this.createIngredients(data.drinks[0]);
-    this.setState({
-      ingredients: ingredients,
-      instructions: data.drinks[0].strInstructions,
-      isLoading: false,
-      cocktailImageUri: data.drinks[0].strDrinkThumb
-    });
+    if (data._hasError) {
+      Alert.alert("Error", data._response);
+      this.setState({
+        isLoading: false
+      });
+    } else {
+      const cocktail = data.drinks[0];
+      const ingredients = this.createIngredients(cocktail);
+      this.setState({
+        ingredients: ingredients,
+        instructions: cocktail.strInstructions,
+        isLoading: false,
+        cocktailImageUri: cocktail.strDrinkThumb
+      });
+    }
   }
 
   createIngredients(data) {

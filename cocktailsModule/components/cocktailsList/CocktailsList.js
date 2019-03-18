@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { FlatList, StyleSheet, View, ActivityIndicator } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  Alert
+} from "react-native";
 import { urlForCocktails, requestCocktails } from "../../apiConnector";
 import CocktailsListItem from "./CocktailsListItem";
-import AsyncImage from "../common/AsyncImage";
 
 export default class CocktailsList extends Component<{}> {
   static navigationOptions = {
@@ -23,7 +28,13 @@ export default class CocktailsList extends Component<{}> {
 
   dataHandler(data) {
     console.log(data);
-    this.setState({ cocktails: data.drinks, isLoading: false });
+    if (data._hasError) {
+      console.log("hubo un error");
+      Alert.alert("Error", data._response);
+      this.setState({ cocktails: null, isLoading: false });
+    } else {
+      this.setState({ cocktails: data.drinks, isLoading: false });
+    }
   }
 
   executeQuery = query => {
