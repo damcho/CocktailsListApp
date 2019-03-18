@@ -38,7 +38,6 @@ export default class CocktailsList extends Component<{}> {
 
   onPressItem = index => {
     console.log("Pressed row: " + index);
-    console.log(this.state.cocktails[index].strDrink);
     this.props.navigation.navigate("cocktailDetail", {
       cocktailTitle: this.state.cocktails[index].strDrink,
       cocktailId: this.state.cocktails[index].idDrink
@@ -61,6 +60,7 @@ export default class CocktailsList extends Component<{}> {
     return (
       <View style={styles.container}>
         <FlatList
+          style={styles.flatlist}
           data={this.state.cocktails}
           keyExtractor={(item, index) => item.idDrink}
           renderItem={this.renderItem}
@@ -78,6 +78,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+    backgroundColor: "#40e0d0",
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15
+  },
+  flatlist: {}
 });

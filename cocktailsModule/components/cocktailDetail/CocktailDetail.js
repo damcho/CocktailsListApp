@@ -5,8 +5,7 @@ import {
   StyleSheet,
   View,
   ActivityIndicator,
-  ScrollView,
-  Dimensions
+  ScrollView
 } from "react-native";
 import { urlForCocktailsDetail, requestCocktails } from "../../apiConnector";
 
