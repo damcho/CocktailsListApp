@@ -1,41 +1,33 @@
-import React, { Component } from "react";
-import {
-  TouchableHighlight,
-  StyleSheet,
-  Text,
-  View,
-  Image
-} from "react-native";
+import React from "react";
+import { TouchableHighlight, StyleSheet, Text, View } from "react-native";
 import AsyncImage from "../common/AsyncImage";
 
-export default class CocktailsListItem extends Component {
-  onPress = () => {
-    this.props.onPressItem(this.props.index);
+const CocktailsListItem = (props: Props) => {
+  const onItemPressed = index => {
+    props.onPressItem(props.index);
   };
-
-  render() {
-    const item = this.props.item;
-    return (
-      <TouchableHighlight onPress={this.onPress} underlayColor="#dddddd">
-        <View>
-          <View style={styles.rowContainer}>
-            <AsyncImage
-              style={styles.thumb}
-              source={{
-                uri: item.strDrinkThumb
-              }}
-              placeholderColor="#b3e5fc"
-            />
-            <View style={styles.textContainer}>
-              <Text style={styles.cocktailName}>{item.strDrink}</Text>
-            </View>
+  return (
+    <TouchableHighlight onPress={onItemPressed} underlayColor="#dddddd">
+      <View>
+        <View style={styles.rowContainer}>
+          <AsyncImage
+            style={styles.thumb}
+            source={{
+              uri: props.item.strDrinkThumb
+            }}
+            placeholderColor="#b3e5fc"
+          />
+          <View style={styles.textContainer}>
+            <Text style={styles.cocktailName}>{props.item.strDrink}</Text>
           </View>
-          <View style={styles.separator} />
         </View>
-      </TouchableHighlight>
-    );
-  }
-}
+        <View style={styles.separator} />
+      </View>
+    </TouchableHighlight>
+  );
+};
+
+export default CocktailsListItem;
 
 const styles = StyleSheet.create({
   thumb: {

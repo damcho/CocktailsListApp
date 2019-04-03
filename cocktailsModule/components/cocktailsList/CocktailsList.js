@@ -1,87 +1,27 @@
-import React, { Component } from "react";
-import {
-  FlatList,
-  StyleSheet,
-  View,
-  ActivityIndicator,
-  Alert
-} from "react-native";
-import { urlForCocktails, requestCocktails } from "../../apiConnector";
+import React from "react";
+import { FlatList, StyleSheet, View, ActivityIndicator } from "react-native";
 import CocktailsListItem from "./CocktailsListItem";
 
-export default class CocktailsList extends Component<{}> {
-  static navigationOptions = {
-    title: "Cocktails List"
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      cocktails: []
-    };
-    this.dataHandler = this.dataHandler.bind(this);
-  }
-  componentDidMount() {
-    this.getCocktails();
-  }
-
-  dataHandler(data) {
-    console.log(data);
-    if (data._hasError) {
-      console.log("hubo un error");
-      Alert.alert("Error", data._response);
-      this.setState({ cocktails: null, isLoading: false });
-    } else {
-      this.setState({ cocktails: data.drinks, isLoading: false });
-    }
-  }
-
-  executeQuery = query => {
-    this.setState({ isLoading: true });
-    requestCocktails(query, this.dataHandler);
-  };
-
-  getCocktails() {
-    const query = urlForCocktails("place_name", "", 1);
-    console.log(query);
-    this.executeQuery(query);
-  }
-
-  onPressItem = index => {
-    console.log("Pressed row: " + index);
-    this.props.navigation.navigate("cocktailDetail", {
-      cocktailTitle: this.state.cocktails[index].strDrink,
-      cocktailId: this.state.cocktails[index].idDrink
-    });
-  };
-
-  renderItem = ({ item, index }) => (
-    <CocktailsListItem
-      item={item}
-      index={index}
-      onPressItem={this.onPressItem}
-    />
+let onPress = null;
+const CocktailsList = (props: Props) => {
+  onPress = props.onPressItem;
+  return (
+    <View style={styles.container}>
+      <FlatList
+        style={styles.flatlist}
+        data={props.data}
+        keyExtractor={(item, index) => item.idDrink}
+        renderItem={renderItem}
+      />
+    </View>
   );
+};
 
-  render() {
-    const spinner = this.state.isLoading ? (
-      <ActivityIndicator size="large" style={styles.spinner} />
-    ) : null;
+renderItem = ({ item, index }) => {
+  return <CocktailsListItem item={item} index={index} onPressItem={onPress} />;
+};
 
-    return (
-      <View style={styles.container}>
-        <FlatList
-          style={styles.flatlist}
-          data={this.state.cocktails}
-          keyExtractor={(item, index) => item.idDrink}
-          renderItem={this.renderItem}
-        />
-        {spinner}
-      </View>
-    );
-  }
-}
+export default CocktailsList;
 
 const styles = StyleSheet.create({
   spinner: {

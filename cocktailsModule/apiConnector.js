@@ -3,7 +3,7 @@ import axios from "axios";
 const scheme = "https://";
 const host = "www.thecocktaildb.com";
 
-export function urlForCocktails(key, value, pageNumber) {
+export function urlForCocktails() {
   const path = "/api/json/v1/1/filter.php";
 
   const querystring = "?c=Cocktail";
