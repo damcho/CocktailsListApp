@@ -1,6 +1,7 @@
 import React from "react";
 import { FlatList, StyleSheet, View, ActivityIndicator } from "react-native";
 import CocktailsListItem from "./CocktailsListItem";
+import styles from "./CocktailsList.styles.js";
 
 let onPress = null;
 const CocktailsList = (props: Props) => {
@@ -22,20 +23,3 @@ renderItem = ({ item, index }) => {
 };
 
 export default CocktailsList;
-
-const styles = StyleSheet.create({
-  spinner: {
-    position: "absolute",
-    alignSelf: "center"
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#40e0d0",
-    paddingTop: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingBottom: 15
-  },
-  flatlist: {}
-});
