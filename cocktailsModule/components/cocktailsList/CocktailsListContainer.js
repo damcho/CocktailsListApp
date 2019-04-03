@@ -14,20 +14,19 @@ export default class CocktailsListContainer extends Component<{}> {
       isLoading: false,
       cocktails: []
     };
-    this.dataHandler = this.dataHandler.bind(this);
   }
   componentDidMount() {
     this.getCocktails();
   }
 
-  dataHandler(data) {
+  dataHandler = data => {
     if (data._hasError) {
       Alert.alert("Error", data._response);
       this.setState({ cocktails: null, isLoading: false });
     } else {
       this.setState({ cocktails: data.drinks, isLoading: false });
     }
-  }
+  };
 
   executeQuery = query => {
     this.setState({ isLoading: true });
@@ -40,7 +39,6 @@ export default class CocktailsListContainer extends Component<{}> {
   }
 
   onPressItem = index => {
-    console.log("navigation");
     this.props.navigation.navigate("cocktailDetail", {
       cocktailTitle: this.state.cocktails[index].strDrink,
       cocktailId: this.state.cocktails[index].idDrink
