@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import CocktailsListContainer from "./cocktailsModule/components/cocktailsList/CocktailsListContainer";
-import CocktailDetail from "./cocktailsModule/components/cocktailDetail/CocktailDetail";
+import CocktailDetailContainer from "./cocktailsModule/components/cocktailDetail/CocktailDetailContainer";
 import { Provider } from "react-redux";
 
 import thunkMiddleware from "redux-thunk";
@@ -11,7 +11,7 @@ import rootReducer from "./cocktailsModule/reducers/cocktailsModuleReducers";
 
 const MainNavigator = createStackNavigator({
   Home: { screen: CocktailsListContainer },
-  cocktailDetail: { screen: CocktailDetail },
+  cocktailDetail: { screen: CocktailDetailContainer },
   initialRouteName: "CocktailsList"
 });
 const AppContainer = createAppContainer(MainNavigator);
