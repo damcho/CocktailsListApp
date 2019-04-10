@@ -6,6 +6,10 @@ import styles from "./CocktailsList.styles.js";
 let onPress = null;
 const CocktailsList = (props: Props) => {
   onPress = props.onPressItem;
+  const spinner = props.isLoading ? (
+    <ActivityIndicator style={styles.spinner} size="large" />
+  ) : null;
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -14,6 +18,7 @@ const CocktailsList = (props: Props) => {
         keyExtractor={(item, index) => item.idDrink}
         renderItem={renderItem}
       />
+      {spinner}
     </View>
   );
 };

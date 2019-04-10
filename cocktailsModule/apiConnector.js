@@ -27,7 +27,6 @@ export function requestCocktails(query, responseHandler) {
   axios
     .get(query)
     .then(response => {
-      console.log(response.data);
       responseHandler(response.data);
     })
     .catch(error => {
