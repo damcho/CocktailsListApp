@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 import {
   REQUEST_COCKTAILS,
-  RECEIVE_COCKTAILS
+  RECEIVE_COCKTAILS,
+  RECEIVE_COCKTAIL_DETAIL,
+  REQUEST_COCKTAIL_DETAIL
 } from "../actions/cocktailsModuleActions";
 
 function cocktails(
@@ -17,15 +19,25 @@ function cocktails(
         isFetching: true
       });
     case RECEIVE_COCKTAILS:
+      const cocktailIds = [];
+      const normalizedCocktailsArray = action.cocktails.reduce(
+        (acumulator, cockObj) => {
+          acumulator[cockObj.idDrink] = cockObj;
+          cocktailIds.push(cockObj.idDrink);
+          return acumulator;
+        }
+      );
       return Object.assign({}, state, {
         isFetching: false,
-        cocktails: action.cocktails,
-        lastUpdated: action.receivedAt
+        cocktails: normalizedCocktailsArray,
+        cocktailIds: cocktailIds
       });
     default:
       return state;
   }
 }
+
+function cocktailDetail(state = {}, action) {}
 
 function cocktailsList(state = {}, action) {
   switch (action.type) {
@@ -34,7 +46,11 @@ function cocktailsList(state = {}, action) {
       let nextState = {};
       nextState = cocktails(state, action);
       return Object.assign({}, state, nextState);
-
+    case RECEIVE_COCKTAIL_DETAIL:
+      const newState = { ...state };
+      console.log("recibido detalle");
+      newState.cocktails[action.cocktail.idDrink] = action.cocktail;
+      return newState;
     default:
       return state;
   }
