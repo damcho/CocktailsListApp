@@ -3,6 +3,7 @@ import { fetchCocktails } from "../../actions/cocktailsModuleActions";
 import React, { Component } from "react";
 import { Alert } from "react-native";
 import CocktailsList from "./CocktailsList";
+import { urlForCocktails } from "../../apiConnector";
 
 class CocktailsListWrapper extends Component<{}> {
   static navigationOptions = {
@@ -10,8 +11,7 @@ class CocktailsListWrapper extends Component<{}> {
   };
 
   componentDidMount() {
-    const query = urlForCocktails();
-    this.props.fetchCocktails(query);
+    this.props.fetchCocktails();
   }
 
   onPressItem = index => {
@@ -48,7 +48,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCocktails: query => dispatch(fetchCocktails(query))
+    fetchCocktails: () => dispatch(fetchCocktails())
   };
 };
 

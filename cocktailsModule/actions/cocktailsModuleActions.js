@@ -53,8 +53,9 @@ export function fetchCocktailDetail(cocktailID) {
   };
 }
 
-export function fetchCocktails(query) {
+export function fetchCocktails() {
   return function(dispatch) {
+    const query = urlForCocktails();
     dispatch(requestCocktailsAction());
     dataHandler = data => {
       if (data._hasError) {
