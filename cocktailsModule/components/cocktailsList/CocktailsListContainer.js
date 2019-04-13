@@ -3,7 +3,6 @@ import { fetchCocktails } from "../../actions/cocktailsModuleActions";
 import React, { Component } from "react";
 import { Alert } from "react-native";
 import CocktailsList from "./CocktailsList";
-import { urlForCocktails } from "../../apiConnector";
 
 class CocktailsListWrapper extends Component<{}> {
   static navigationOptions = {
