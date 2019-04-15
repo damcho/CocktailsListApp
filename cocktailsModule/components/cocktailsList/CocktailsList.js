@@ -1,5 +1,11 @@
 import React from "react";
-import { FlatList, StyleSheet, View, ActivityIndicator } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  RefreshControl
+} from "react-native";
 import CocktailsListItem from "./CocktailsListItem";
 import styles from "./CocktailsList.styles.js";
 
@@ -13,6 +19,12 @@ const CocktailsList = (props: Props) => {
   return (
     <View style={styles.container}>
       <FlatList
+        refreshControl={
+          <RefreshControl
+            refreshing={props.isLoading}
+            onRefresh={props.onRefreshList}
+          />
+        }
         style={styles.flatlist}
         data={props.data}
         keyExtractor={(item, index) => item.idDrink}

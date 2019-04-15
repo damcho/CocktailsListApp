@@ -32,24 +32,29 @@ function receivedCocktailsAction(json) {
 function receivedCocktailDetailAction(json) {
   return {
     type: RECEIVE_COCKTAIL_DETAIL,
-    cocktail: json.drinks[0]
+    cocktail: json
   };
 }
 
 export function fetchCocktailDetail(cocktailID) {
-  return function(dispatch) {
+  return function(dispatch, getState) {
     dispatch(requestCocktailDetailAction());
     const query = urlForCocktailsDetail(cocktailID);
-
-    dataHandler = data => {
-      if (data._hasError) {
-        Alert.alert("Error", data._response);
-        this.setState({ cocktails: null, isLoading: false });
-      } else {
-        dispatch(receivedCocktailDetailAction(data));
-      }
-    };
-    return requestCocktails(query, dataHandler);
+    const cocktailDetail = getState().cocktailsList.cocktails[cocktailID];
+    if (cocktailDetail.strInstructions != null) {
+      dispatch(receivedCocktailDetailAction(cocktailDetail));
+      return null;
+    } else {
+      dataHandler = data => {
+        if (data._hasError) {
+          Alert.alert("Error", data._response);
+          this.setState({ cocktails: null, isLoading: false });
+        } else {
+          dispatch(receivedCocktailDetailAction(data.drinks[0]));
+        }
+      };
+      return requestCocktails(query, dataHandler);
+    }
   };
 }
 
