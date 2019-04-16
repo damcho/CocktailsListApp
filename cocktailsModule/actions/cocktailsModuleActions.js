@@ -8,6 +8,14 @@ export const REQUEST_COCKTAILS = "REQUEST_COCKTAILS";
 export const RECEIVE_COCKTAILS = "RECEIVE_COCKTAILS";
 export const REQUEST_COCKTAIL_DETAIL = "REQUEST_COCKTAIL_DETAIL";
 export const RECEIVE_COCKTAIL_DETAIL = "RECEIVE_COCKTAIL_DETAIL";
+export const DELETE_COCKTAIL = "DELETE_COCKTAIL";
+
+export function deleteCocktail(cocktailID) {
+  return {
+    type: DELETE_COCKTAIL,
+    cocktailID: cocktailID
+  };
+}
 
 function requestCocktailsAction() {
   return {

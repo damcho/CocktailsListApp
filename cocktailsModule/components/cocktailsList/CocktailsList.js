@@ -9,12 +9,21 @@ import {
 import CocktailsListItem from "./CocktailsListItem";
 import styles from "./CocktailsList.styles.js";
 
-let onPress = null;
 const CocktailsList = (props: Props) => {
-  onPress = props.onPressItem;
   const spinner = props.isLoading ? (
     <ActivityIndicator style={styles.spinner} size="large" />
   ) : null;
+
+  renderItem = ({ item, index }) => {
+    return (
+      <CocktailsListItem
+        item={item}
+        index={index}
+        onPressItem={props.onPressItem}
+        onDeleteItem={props.onDeleteItem}
+      />
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -33,10 +42,6 @@ const CocktailsList = (props: Props) => {
       {spinner}
     </View>
   );
-};
-
-renderItem = ({ item, index }) => {
-  return <CocktailsListItem item={item} index={index} onPressItem={onPress} />;
 };
 
 export default CocktailsList;

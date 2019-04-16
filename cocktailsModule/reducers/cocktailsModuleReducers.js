@@ -3,7 +3,8 @@ import {
   REQUEST_COCKTAILS,
   RECEIVE_COCKTAILS,
   RECEIVE_COCKTAIL_DETAIL,
-  REQUEST_COCKTAIL_DETAIL
+  REQUEST_COCKTAIL_DETAIL,
+  DELETE_COCKTAIL
 } from "../actions/cocktailsModuleActions";
 
 function cocktails(state, action) {
@@ -34,6 +35,18 @@ function cocktailsList(state = {}, action) {
       const newState = { ...state, isFetching: false };
       newState.cocktails[action.cocktail.idDrink] = action.cocktail;
       return newState;
+    case DELETE_COCKTAIL:
+      const newState2 = {
+        ...state
+      };
+      const filtercocktailIDs = state.cocktailIds.filter(
+        cocktailID => cocktailID != action.cocktailID
+      );
+
+      newState2.cocktailIds = filtercocktailIDs;
+      delete newState2.cocktails[action.cocktailID];
+      return newState2;
+
     default:
       return state;
   }

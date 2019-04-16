@@ -1,7 +1,10 @@
 import { connect } from "react-redux";
-import { fetchCocktails } from "../../actions/cocktailsModuleActions";
+import {
+  fetchCocktails,
+  deleteCocktail
+} from "../../actions/cocktailsModuleActions";
 import React, { Component } from "react";
-import { Alert } from "react-native";
+import { Alert, LayoutAnimation } from "react-native";
 import CocktailsList from "./CocktailsList";
 
 class CocktailsListWrapper extends Component<{}> {
@@ -24,11 +27,17 @@ class CocktailsListWrapper extends Component<{}> {
     });
   };
 
+  onDeleteItem = cocktailID => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    this.props.deleteCocktail(cocktailID);
+  };
+
   render() {
     return (
       <CocktailsList
         data={this.props.cocktails}
         onPressItem={this.onPressItem}
+        onDeleteItem={this.onDeleteItem}
         isLoading={this.props.isLoading}
         onRefreshList={this.onRefresh}
       />
@@ -52,6 +61,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    deleteCocktail: cocktailID => dispatch(deleteCocktail(cocktailID)),
     fetchCocktails: () => dispatch(fetchCocktails())
   };
 };
