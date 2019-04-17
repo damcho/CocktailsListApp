@@ -4,7 +4,9 @@ import {
   RECEIVE_COCKTAILS,
   RECEIVE_COCKTAIL_DETAIL,
   REQUEST_COCKTAIL_DETAIL,
-  DELETE_COCKTAIL
+  DELETE_COCKTAIL,
+  REQUEST_COCKTAILS_FAILED,
+  CLEAR_ERROR
 } from "../actions/cocktailsModuleActions";
 
 function cocktails(state, action) {
@@ -22,6 +24,18 @@ function cocktails(state, action) {
     cocktails: normalizedCocktailsArray,
     cocktailIds: cocktailIds
   };
+}
+
+function error(state = {}, action) {
+  switch (action.type) {
+    case REQUEST_COCKTAILS_FAILED:
+      console.log(action.error);
+      return action.error;
+    case CLEAR_ERROR:
+      return null;
+    default:
+      return null;
+  }
 }
 
 function cocktailsList(state = {}, action) {
@@ -46,6 +60,8 @@ function cocktailsList(state = {}, action) {
       newState2.cocktailIds = filtercocktailIDs;
       delete newState2.cocktails[action.cocktailID];
       return newState2;
+    case REQUEST_COCKTAILS_FAILED:
+      return { ...state, isFetching: false };
 
     default:
       return state;
@@ -53,7 +69,8 @@ function cocktailsList(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
-  cocktailsList
+  cocktailsList,
+  error
 });
 
 export default rootReducer;

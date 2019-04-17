@@ -5,11 +5,27 @@ import {
 } from "../apiConnector";
 
 export const REQUEST_COCKTAILS = "REQUEST_COCKTAILS";
+export const REQUEST_COCKTAILS_FAILED = "REQUEST_COCKTAILS_FAILED";
 export const RECEIVE_COCKTAILS = "RECEIVE_COCKTAILS";
-export const REQUEST_COCKTAIL_DETAIL = "REQUEST_COCKTAIL_DETAIL";
-export const RECEIVE_COCKTAIL_DETAIL = "RECEIVE_COCKTAIL_DETAIL";
-export const DELETE_COCKTAIL = "DELETE_COCKTAIL";
 
+export const REQUEST_COCKTAIL_DETAIL = "REQUEST_COCKTAIL_DETAIL";
+export const REQUEST_COCKTAIL_DETAIL_FAILED = "REQUEST_COCKTAIL_DETAIL_FAILED";
+export const RECEIVE_COCKTAIL_DETAIL = "RECEIVE_COCKTAIL_DETAIL";
+
+export const DELETE_COCKTAIL = "DELETE_COCKTAIL";
+export const CLEAR_ERROR = "CLEAR_ERROR";
+
+export function clearError() {
+  return {
+    type: CLEAR_ERROR
+  };
+}
+function requestCocktailsFailed(error) {
+  return {
+    type: REQUEST_COCKTAILS_FAILED,
+    error: error
+  };
+}
 export function deleteCocktail(cocktailID) {
   return {
     type: DELETE_COCKTAIL,
@@ -55,8 +71,7 @@ export function fetchCocktailDetail(cocktailID) {
     } else {
       dataHandler = data => {
         if (data._hasError) {
-          Alert.alert("Error", data._response);
-          this.setState({ cocktails: null, isLoading: false });
+          dispatch(requestCocktailsFailed(data));
         } else {
           dispatch(receivedCocktailDetailAction(data.drinks[0]));
         }
@@ -71,9 +86,9 @@ export function fetchCocktails() {
     const query = urlForCocktails();
     dispatch(requestCocktailsAction());
     dataHandler = data => {
+      console.log(data);
       if (data._hasError) {
-        Alert.alert("Error", data._response);
-        this.setState({ cocktails: null, isLoading: false });
+        dispatch(requestCocktailsFailed(data));
       } else {
         dispatch(receivedCocktailsAction(data));
       }

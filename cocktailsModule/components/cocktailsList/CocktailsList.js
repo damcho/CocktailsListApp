@@ -4,12 +4,16 @@ import {
   StyleSheet,
   View,
   ActivityIndicator,
-  RefreshControl
+  RefreshControl,
+  Alert
 } from "react-native";
 import CocktailsListItem from "./CocktailsListItem";
 import styles from "./CocktailsList.styles.js";
 
 const CocktailsList = (props: Props) => {
+  if (props.error) {
+    Alert.alert("Error", props.error._response);
+  }
   const spinner = props.isLoading ? (
     <ActivityIndicator style={styles.spinner} size="large" />
   ) : null;

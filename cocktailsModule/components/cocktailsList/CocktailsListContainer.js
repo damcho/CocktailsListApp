@@ -4,12 +4,19 @@ import {
   deleteCocktail
 } from "../../actions/cocktailsModuleActions";
 import React, { Component } from "react";
-import { Alert, LayoutAnimation } from "react-native";
+import { Alert, Button, LayoutAnimation } from "react-native";
 import CocktailsList from "./CocktailsList";
 
-class CocktailsListWrapper extends Component<{}> {
+class CocktailsListWrapper extends Component {
   static navigationOptions = {
-    title: "Cocktails List"
+    headerTitle: "Cocktails List",
+    headerRight: (
+      <Button
+        onPress={() => alert("This is a button!")}
+        title="Info"
+        color="#0000FF"
+      />
+    )
   };
 
   componentDidMount() {
@@ -35,6 +42,7 @@ class CocktailsListWrapper extends Component<{}> {
   render() {
     return (
       <CocktailsList
+        error={this.props.error}
         data={this.props.cocktails}
         onPressItem={this.onPressItem}
         onDeleteItem={this.onDeleteItem}
@@ -55,7 +63,8 @@ const mapStateToProps = state => {
 
   return {
     cocktails: cocktailsToList,
-    isLoading: state.cocktailsList.isFetching
+    isLoading: state.cocktailsList.isFetching,
+    error: state.error
   };
 };
 
