@@ -4,19 +4,25 @@ import {
   deleteCocktail
 } from "../../actions/cocktailsModuleActions";
 import React, { Component } from "react";
-import { Alert, Button, LayoutAnimation } from "react-native";
+import { Alert, LayoutAnimation } from "react-native";
 import CocktailsList from "./CocktailsList";
+import { Button } from "react-native-elements";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 class CocktailsListWrapper extends Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     headerTitle: "Cocktails List",
     headerRight: (
       <Button
-        onPress={() => alert("This is a button!")}
-        title="Info"
-        color="#0000FF"
+        icon={<Icon name="add" size={35} />}
+        onPress={() => navigation.navigate("createCocktail")}
+        type="clear"
       />
     )
+  });
+
+  onAddCocktailPress = () => {
+    this.props.navigation.navigate("createCocktail");
   };
 
   componentDidMount() {
