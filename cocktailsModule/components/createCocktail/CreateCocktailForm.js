@@ -17,7 +17,7 @@ const CreateCocktailForm = (props: Props) => {
           label: "Amount",
           required: true,
           options: ["1/4", "1/2", "1", "2", "3"],
-          defaultValue: ["1/2"]
+          defaultValue: "1/4"
         },
         {
           type: "select",
@@ -25,14 +25,15 @@ const CreateCocktailForm = (props: Props) => {
           label: "Unit",
           required: true,
           options: ["gr", "tea spoon", "cup", "splash"],
-          defaultValue: ["cup"]
+          defaultValue: "cup"
         },
         {
           type: "select",
           name: "beverage",
           label: "beverage",
           required: true,
-          options: ["Vodka", "Gin", "Rum", "Wine"]
+          options: ["Vodka", "Gin", "Rum", "Wine"],
+          defaultValue: "Vodka"
         }
       ]
     },
@@ -63,36 +64,73 @@ const CreateCocktailForm = (props: Props) => {
     <Text style={styles.selectPhotoText}>Select Photo </Text>
   );
 
+  addIngredient = () => {
+    console.log(this.createCocktailForm.getValues());
+    const formValues = this.createCocktailForm.getValues();
+    const measure =
+      formValues.ingredient.amount + " " + formValues.ingredient.unit;
+    const preparationIngredient = {
+      measure: measure,
+      ingredient: formValues.ingredient.beverage
+    };
+
+    props.onCocktailIngredientAdded(preparationIngredient);
+  };
+
+  addInstructions = () => {
+    console.log(this.createCocktailForm.getValues());
+    const formValues = this.createCocktailForm.getValues();
+    props.onInstructionsAdded(formValues.instructions.Instructions);
+  };
+
+  const ingredients = props.measures.map((measure, index) => {
+    const ingredientText = measure + " of " + props.ingredients[index];
+    return (
+      <View style={styles.ingredientContainerView}>
+        <Text style={styles.ingredientItem} key={ingredientText}>
+          {ingredientText}
+        </Text>
+      </View>
+    );
+  });
+
   return (
     <View style={styles.mainContainerView}>
       <ScrollView
-        contentContainerStyle={{ flexGrow: 1, alignItems: "stretch" }}
+        style={styles.scrollView}
+        scontentContainerStyle={{ alignItems: "stretch" }}
       >
-        <TouchableHighlight
-          onPress={props.imagePickerPressed}
-          style={styles.imagePickerContainer}
-        >
-          <View>{cocktailImage}</View>
+        <TouchableHighlight onPress={props.imagePickerPressed}>
+          <View style={styles.imagePickerContainer}>{cocktailImage}</View>
         </TouchableHighlight>
 
         <View style={styles.formContainer}>
           <GenerateForm
             ref={c => {
-              this.CreateCocktailForm = c;
+              this.createCocktailForm = c;
             }}
             fields={fields}
+            onValueChange={this.addInstructions}
           />
+
           <Button
             style={styles.addIngredientButton}
             block
-            onPress={() => this.login()}
+            onPress={this.addIngredient}
           >
             <Text>Add Ingredient</Text>
           </Button>
+
+          {ingredients}
         </View>
       </ScrollView>
+
       <View style={styles.createCocktailButton}>
-        <Button block onPress={() => this.login()}>
+        <Button
+          disabled={!props.isCreateCocktailEnabled}
+          block
+          onPress={() => this.login()}
+        >
           <Text>Create cocktail</Text>
         </Button>
       </View>

@@ -9,14 +9,56 @@ class CreateCocktailFormContainerWrapper extends Component {
     super(props);
 
     this.state = {
-      avatarSource: null
+      id: null,
+      thumbImage: null,
+      ingredients: [],
+      measures: [],
+      instructions: "",
+      shouldEnableCreateCocktail: true
     };
   }
+
   componentDidMount() {}
+
+  validateCoctail = () => {
+    const shouldEnableCreateButton =
+      this.state.measures.length &&
+      this.state.ingredients.length &&
+      this.state.instructions.length
+        ? true
+        : false;
+
+    this.setState({
+      shouldEnableCreateCocktail: shouldEnableCreateButton
+    });
+  };
+
+  onCocktailIngredientAdded = ingredient => {
+    this.setState(
+      previousState => ({
+        measures: [...previousState.measures, ingredient.measure],
+        ingredients: [...previousState.ingredients, ingredient.ingredient]
+      }),
+      () => {
+        this.validateCoctail();
+      }
+    );
+  };
+
+  onInstructionsAdded = instructions => {
+    this.setState(
+      previousState => ({
+        instructions: instructions
+      }),
+      () => {
+        this.validateCoctail();
+      }
+    );
+  };
 
   onImagePickerPressed = () => {
     const options = {
-      title: "Select Cocktail image",
+      title: "Select Cocktail photo",
       storageOptions: {
         skipBackup: true,
         path: "images"
@@ -37,18 +79,21 @@ class CreateCocktailFormContainerWrapper extends Component {
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
         this.setState({
-          avatarSource: response.uri
+          thumbImage: response.uri
         });
       }
     });
   };
 
   render() {
-    console.log("imprimoooo");
-    const imageUri = this.state.avatarSource ? this.state.avatarSource : null;
     return (
       <CreateCocktailForm
-        cocktailImageUri={this.state.avatarSource}
+        onInstructionsAdded={this.onInstructionsAdded}
+        isCreateCocktailEnabled={this.state.shouldEnableCreateCocktail}
+        measures={this.state.measures}
+        ingredients={this.state.ingredients}
+        onCocktailIngredientAdded={this.onCocktailIngredientAdded}
+        cocktailImageUri={this.state.thumbImage}
         imagePickerPressed={this.onImagePickerPressed}
       />
     );
