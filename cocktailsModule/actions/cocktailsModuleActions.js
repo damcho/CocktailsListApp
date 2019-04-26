@@ -95,7 +95,6 @@ export function fetchCocktails() {
     const query = urlForCocktails();
     dispatch(requestCocktailsAction());
     dataHandler = data => {
-      console.log(data);
       if (data._hasError) {
         dispatch(requestCocktailsFailed(data));
       } else {

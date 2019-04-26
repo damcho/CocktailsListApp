@@ -18,7 +18,7 @@ const MainNavigator = createStackNavigator({
   initialRouteName: "CocktailsList"
 });
 const AppContainer = createAppContainer(MainNavigator);
-
+console.disableYellowBox = true;
 const loggerMiddleware = createLogger();
 
 const store = createStore(

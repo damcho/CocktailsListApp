@@ -78,13 +78,15 @@ const CreateCocktailForm = (props: Props) => {
             }}
             fields={ingredientsFormConfig}
           />
-          <Button
-            style={styles.addIngredientButton}
-            block
-            onPress={this.addIngredient}
-          >
-            <Text>Add Ingredient</Text>
-          </Button>
+          <View style={styles.addIngredientButtonSection}>
+            <Button
+              style={styles.addIngredientButton}
+              onPress={this.addIngredient}
+            >
+              <Text>Add Ingredient</Text>
+            </Button>
+          </View>
+
           {ingredients}
 
           <GenerateForm
@@ -103,7 +105,7 @@ const CreateCocktailForm = (props: Props) => {
           block
           onPress={props.onCreateCocktailPressed}
         >
-          <Text>Create cocktail</Text>
+          <Text>Save</Text>
         </Button>
       </View>
     </View>

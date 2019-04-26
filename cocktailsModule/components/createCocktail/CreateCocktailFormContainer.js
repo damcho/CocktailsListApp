@@ -119,12 +119,6 @@ class CreateCocktailFormContainerWrapper extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    cockName: "nombre"
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     createCocktail: cocktail => dispatch(createCocktail(cocktail))
@@ -132,7 +126,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const CreateCocktailFormContainer = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(CreateCocktailFormContainerWrapper);
 

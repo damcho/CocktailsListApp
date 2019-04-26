@@ -34,8 +34,15 @@ export default StyleSheet.create({
     flex: 1,
     paddingTop: 10
   },
+  addIngredientButtonSection: {
+    flex: 1,
+    width: "100%",
+    height: 80,
+    justifyContent: "center",
+    alignItems: "center"
+  },
   addIngredientButton: {
-    flex: 0.1
+    alignSelf: "center"
   },
   createCocktailButton: {
     flex: 0.1,
@@ -48,12 +55,12 @@ export default StyleSheet.create({
     fontSize: 18
   },
   ingredientContainerView: {
-    height: 50,
+    height: 40,
     justifyContent: "center",
     left: 15
   },
   ingredientItem: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold"
   }
 });
