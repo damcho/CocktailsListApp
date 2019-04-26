@@ -15,6 +15,15 @@ export const RECEIVE_COCKTAIL_DETAIL = "RECEIVE_COCKTAIL_DETAIL";
 export const DELETE_COCKTAIL = "DELETE_COCKTAIL";
 export const CLEAR_ERROR = "CLEAR_ERROR";
 
+export const CREATE_COCKTAIL = "CREATE_COCKTAIL";
+
+export function createCocktail(cocktail) {
+  return {
+    type: CREATE_COCKTAIL,
+    cocktail: cocktail
+  };
+}
+
 export function clearError() {
   return {
     type: CLEAR_ERROR

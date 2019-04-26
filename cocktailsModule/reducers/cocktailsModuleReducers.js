@@ -6,7 +6,8 @@ import {
   REQUEST_COCKTAIL_DETAIL,
   DELETE_COCKTAIL,
   REQUEST_COCKTAILS_FAILED,
-  CLEAR_ERROR
+  CLEAR_ERROR,
+  CREATE_COCKTAIL
 } from "../actions/cocktailsModuleActions";
 
 function cocktails(state, action) {
@@ -49,6 +50,16 @@ function cocktailsList(state = {}, action) {
       const newState = { ...state, isFetching: false };
       newState.cocktails[action.cocktail.idDrink] = action.cocktail;
       return newState;
+    case CREATE_COCKTAIL:
+      const cocktailId = action.cocktail.idDrink;
+      const normalizedcocktails = { ...state.cocktails };
+      normalizedcocktails[cocktailId] = action.cocktail;
+      const cocktailIds = [...state.cocktailIds, cocktailId];
+      return {
+        ...state,
+        cocktailIds: cocktailIds,
+        cocktails: normalizedcocktails
+      };
     case DELETE_COCKTAIL:
       const newState2 = {
         ...state

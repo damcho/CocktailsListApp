@@ -31,9 +31,12 @@ export default StyleSheet.create({
 
   formContainer: {
     backgroundColor: "white",
-    flex: 1
+    flex: 1,
+    paddingTop: 10
   },
-  addIngredientButton: { flex: 0.1 },
+  addIngredientButton: {
+    flex: 0.1
+  },
   createCocktailButton: {
     flex: 0.1,
     bottom: 0,

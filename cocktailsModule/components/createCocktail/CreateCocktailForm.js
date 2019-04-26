@@ -7,6 +7,12 @@ import { Image, TouchableHighlight, ScrollView } from "react-native";
 const CreateCocktailForm = (props: Props) => {
   const fields = [
     {
+      type: "text",
+      name: "CocktailName",
+      label: "Cocktail Name",
+      required: true
+    },
+    {
       type: "group",
       name: "ingredient",
       label: "Cocktai preparation ingredients",
@@ -40,12 +46,12 @@ const CreateCocktailForm = (props: Props) => {
     {
       type: "group",
       name: "instructions",
-      label: "Cocktail preparation Instructions",
+      label: "Cocktail preparation",
       fields: [
         {
           type: "text",
           name: "Instructions",
-          label: "Add instructions",
+          label: "Instructions",
           required: true,
           props: {
             multiline: true,
@@ -129,7 +135,7 @@ const CreateCocktailForm = (props: Props) => {
         <Button
           disabled={!props.isCreateCocktailEnabled}
           block
-          onPress={() => this.login()}
+          onPress={props.onCreateCocktailPressed}
         >
           <Text>Create cocktail</Text>
         </Button>

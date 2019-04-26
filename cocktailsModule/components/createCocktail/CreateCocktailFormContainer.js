@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { fetchCocktails } from "../../actions/cocktailsModuleActions";
+import { createCocktail } from "../../actions/cocktailsModuleActions";
 import React, { Component } from "react";
 import CreateCocktailForm from "./CreateCocktailForm";
 import ImagePicker from "react-native-image-picker";
@@ -10,7 +10,8 @@ class CreateCocktailFormContainerWrapper extends Component {
 
     this.state = {
       id: null,
-      thumbImage: null,
+      cocktailName: null,
+      thumbImage: "",
       ingredients: [],
       measures: [],
       instructions: "",
@@ -56,6 +57,20 @@ class CreateCocktailFormContainerWrapper extends Component {
     );
   };
 
+  onCreateCocktailPressed = () => {
+    const randomId = 100000 + Math.floor(Math.random() * (100000 - 10000));
+    const cocktail = {
+      idDrink: randomId,
+      strDrink: "new drink",
+      strDrinkThumb: this.state.thumbImage,
+      strInstructions: this.state.instructions,
+      strIngredient1: this.state.ingredients[0],
+      strMeasure1: this.state.measures[0]
+    };
+    this.props.createCocktail(cocktail);
+    this.props.navigation.goBack();
+  };
+
   onImagePickerPressed = () => {
     const options = {
       title: "Select Cocktail photo",
@@ -88,6 +103,7 @@ class CreateCocktailFormContainerWrapper extends Component {
   render() {
     return (
       <CreateCocktailForm
+        onCreateCocktailPressed={this.onCreateCocktailPressed}
         onInstructionsAdded={this.onInstructionsAdded}
         isCreateCocktailEnabled={this.state.shouldEnableCreateCocktail}
         measures={this.state.measures}
@@ -108,7 +124,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCocktails: () => dispatch(fetchCocktails())
+    createCocktail: cocktail => dispatch(createCocktail(cocktail))
   };
 };
 
