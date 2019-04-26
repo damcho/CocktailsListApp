@@ -4,21 +4,15 @@ import {
   deleteCocktail
 } from "../../actions/cocktailsModuleActions";
 import React, { Component } from "react";
-import { Alert, LayoutAnimation } from "react-native";
+import { View, LayoutAnimation } from "react-native";
 import CocktailsList from "./CocktailsList";
-import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import ActionButton from "react-native-action-button";
+import styles from "./CocktailsList.styles.js";
 
 class CocktailsListWrapper extends Component {
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Cocktails List",
-    headerRight: (
-      <Button
-        icon={<Icon name="add" size={35} />}
-        onPress={() => navigation.navigate("createCocktail")}
-        type="clear"
-      />
-    )
+    headerTitle: "Cocktails List"
   });
 
   onAddCocktailPress = () => {
@@ -47,14 +41,21 @@ class CocktailsListWrapper extends Component {
 
   render() {
     return (
-      <CocktailsList
-        error={this.props.error}
-        data={this.props.cocktails}
-        onPressItem={this.onPressItem}
-        onDeleteItem={this.onDeleteItem}
-        isLoading={this.props.isLoading}
-        onRefreshList={this.onRefresh}
-      />
+      <View style={{ flex: 1 }}>
+        <CocktailsList
+          error={this.props.error}
+          data={this.props.cocktails}
+          onPressItem={this.onPressItem}
+          onDeleteItem={this.onDeleteItem}
+          isLoading={this.props.isLoading}
+          onRefreshList={this.onRefresh}
+        />
+        <ActionButton
+          style={styles.actionButtonIcon}
+          buttonColor="rgba(231,76,60,1)"
+          onPress={this.onAddCocktailPress}
+        />
+      </View>
     );
   }
 }

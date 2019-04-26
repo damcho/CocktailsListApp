@@ -5,6 +5,9 @@ import CreateCocktailForm from "./CreateCocktailForm";
 import ImagePicker from "react-native-image-picker";
 
 class CreateCocktailFormContainerWrapper extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: "Create Cocktail"
+  });
   constructor(props) {
     super(props);
 

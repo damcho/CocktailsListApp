@@ -3,7 +3,11 @@ import { View, Text, Button } from "native-base";
 import GenerateForm from "react-native-form-builder";
 import styles from "./CreateCocktail.styles.js";
 import { Image, TouchableHighlight, ScrollView } from "react-native";
-import { createCocktailFormConfig } from "./CreateCocktailFormConfig";
+import {
+  ingredientsFormConfig,
+  cocktailNameFormConfig,
+  instructionsFormConfig
+} from "./CreateCocktailFormConfig";
 
 const CreateCocktailForm = (props: Props) => {
   const cocktailImage = props.cocktailImageUri ? (
@@ -16,7 +20,7 @@ const CreateCocktailForm = (props: Props) => {
   );
 
   addIngredient = () => {
-    const formValues = this.createCocktailForm.getValues();
+    const formValues = this.ingredientForm.getValues();
     const measure =
       formValues.ingredient.amount + " " + formValues.ingredient.unit;
     const preparationIngredient = {
@@ -28,10 +32,12 @@ const CreateCocktailForm = (props: Props) => {
   };
 
   valueChanged = () => {
-    const formValues = this.createCocktailForm.getValues();
+    const instructions = this.instructionsForm.getValues();
+    const cocktailName = this.cocktailNameForm.getValues();
+
     const values = {
-      instructions: formValues.instructions.Instructions,
-      cocktailName: formValues.cocktaillName
+      instructions: instructions.instructions.Instructions,
+      cocktailName: cocktailName.cocktaillName
     };
     props.onDataChanged(values);
   };
@@ -53,19 +59,25 @@ const CreateCocktailForm = (props: Props) => {
         style={styles.scrollView}
         scontentContainerStyle={{ alignItems: "stretch" }}
       >
-        <TouchableHighlight onPress={props.imagePickerPressed}>
-          <View style={styles.imagePickerContainer}>{cocktailImage}</View>
-        </TouchableHighlight>
-
         <View style={styles.formContainer}>
           <GenerateForm
             ref={c => {
-              this.createCocktailForm = c;
+              this.cocktailNameForm = c;
             }}
-            fields={createCocktailFormConfig}
+            fields={cocktailNameFormConfig}
             onValueChange={this.valueChanged}
           />
 
+          <TouchableHighlight onPress={props.imagePickerPressed}>
+            <View style={styles.imagePickerContainer}>{cocktailImage}</View>
+          </TouchableHighlight>
+
+          <GenerateForm
+            ref={c => {
+              this.ingredientForm = c;
+            }}
+            fields={ingredientsFormConfig}
+          />
           <Button
             style={styles.addIngredientButton}
             block
@@ -73,8 +85,15 @@ const CreateCocktailForm = (props: Props) => {
           >
             <Text>Add Ingredient</Text>
           </Button>
-
           {ingredients}
+
+          <GenerateForm
+            ref={c => {
+              this.instructionsForm = c;
+            }}
+            fields={instructionsFormConfig}
+            onValueChange={this.valueChanged}
+          />
         </View>
       </ScrollView>
 

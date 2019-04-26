@@ -15,8 +15,8 @@ const CocktailsListItem = (props: Props) => {
 
   const leftContent = <Text>Pull to activate</Text>;
   const rightButtons = [
-    <TouchableHighlight onPress={onItemDeleted}>
-      <Text>Button 1</Text>
+    <TouchableHighlight style={styles.deleteCellButton} onPress={onItemDeleted}>
+      <Text style={styles.deleteCellButtonText}>DELETE</Text>
     </TouchableHighlight>
   ];
   return (

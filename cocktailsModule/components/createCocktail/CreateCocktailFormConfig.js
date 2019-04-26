@@ -1,10 +1,33 @@
-export const createCocktailFormConfig = [
+export const cocktailNameFormConfig = [
   {
     type: "text",
     name: "cocktaillName",
     label: "Cocktail Name",
     required: true
-  },
+  }
+];
+
+export const instructionsFormConfig = [
+  {
+    type: "group",
+    name: "instructions",
+    label: "Cocktail preparation",
+    fields: [
+      {
+        type: "text",
+        name: "Instructions",
+        label: "Instructions",
+        required: true,
+        props: {
+          multiline: true,
+          numberOfLines: 3
+        }
+      }
+    ]
+  }
+];
+
+export const ingredientsFormConfig = [
   {
     type: "group",
     name: "ingredient",
@@ -33,23 +56,6 @@ export const createCocktailFormConfig = [
         required: true,
         options: ["Vodka", "Gin", "Rum", "Wine"],
         defaultValue: "Vodka"
-      }
-    ]
-  },
-  {
-    type: "group",
-    name: "instructions",
-    label: "Cocktail preparation",
-    fields: [
-      {
-        type: "text",
-        name: "Instructions",
-        label: "Instructions",
-        required: true,
-        props: {
-          multiline: true,
-          numberOfLines: 3
-        }
       }
     ]
   }
