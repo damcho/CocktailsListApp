@@ -25,13 +25,15 @@ class CreateCocktailFormContainerWrapper extends Component {
     const shouldEnableCreateButton =
       this.state.measures.length &&
       this.state.ingredients.length &&
-      this.state.instructions.length
+      this.state.instructions.length &&
+      this.state.cocktailName.length
         ? true
         : false;
 
     this.setState({
       shouldEnableCreateCocktail: shouldEnableCreateButton
     });
+    console.log(this.state);
   };
 
   onCocktailIngredientAdded = ingredient => {
@@ -46,10 +48,11 @@ class CreateCocktailFormContainerWrapper extends Component {
     );
   };
 
-  onInstructionsAdded = instructions => {
+  onDataChanged = values => {
     this.setState(
       previousState => ({
-        instructions: instructions
+        instructions: values.instructions,
+        cocktailName: values.cocktailName
       }),
       () => {
         this.validateCoctail();
@@ -61,7 +64,7 @@ class CreateCocktailFormContainerWrapper extends Component {
     const randomId = 100000 + Math.floor(Math.random() * (100000 - 10000));
     const cocktail = {
       idDrink: randomId,
-      strDrink: "new drink",
+      strDrink: this.state.cocktailName,
       strDrinkThumb: this.state.thumbImage,
       strInstructions: this.state.instructions,
       strIngredient1: this.state.ingredients[0],
@@ -90,9 +93,6 @@ class CreateCocktailFormContainerWrapper extends Component {
       } else {
         const source = { uri: response.uri };
 
-        // You can also display the image using data:
-        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
         this.setState({
           thumbImage: response.uri
         });
@@ -104,7 +104,7 @@ class CreateCocktailFormContainerWrapper extends Component {
     return (
       <CreateCocktailForm
         onCreateCocktailPressed={this.onCreateCocktailPressed}
-        onInstructionsAdded={this.onInstructionsAdded}
+        onDataChanged={this.onDataChanged}
         isCreateCocktailEnabled={this.state.shouldEnableCreateCocktail}
         measures={this.state.measures}
         ingredients={this.state.ingredients}

@@ -3,64 +3,9 @@ import { View, Text, Button } from "native-base";
 import GenerateForm from "react-native-form-builder";
 import styles from "./CreateCocktail.styles.js";
 import { Image, TouchableHighlight, ScrollView } from "react-native";
+import { createCocktailFormConfig } from "./CreateCocktailFormConfig";
 
 const CreateCocktailForm = (props: Props) => {
-  const fields = [
-    {
-      type: "text",
-      name: "CocktailName",
-      label: "Cocktail Name",
-      required: true
-    },
-    {
-      type: "group",
-      name: "ingredient",
-      label: "Cocktai preparation ingredients",
-      fields: [
-        {
-          type: "select",
-          name: "amount",
-          label: "Amount",
-          required: true,
-          options: ["1/4", "1/2", "1", "2", "3"],
-          defaultValue: "1/4"
-        },
-        {
-          type: "select",
-          name: "unit",
-          label: "Unit",
-          required: true,
-          options: ["gr", "tea spoon", "cup", "splash"],
-          defaultValue: "cup"
-        },
-        {
-          type: "select",
-          name: "beverage",
-          label: "beverage",
-          required: true,
-          options: ["Vodka", "Gin", "Rum", "Wine"],
-          defaultValue: "Vodka"
-        }
-      ]
-    },
-    {
-      type: "group",
-      name: "instructions",
-      label: "Cocktail preparation",
-      fields: [
-        {
-          type: "text",
-          name: "Instructions",
-          label: "Instructions",
-          required: true,
-          props: {
-            multiline: true,
-            numberOfLines: 3
-          }
-        }
-      ]
-    }
-  ];
   const cocktailImage = props.cocktailImageUri ? (
     <Image
       style={styles.cocktailImage}
@@ -71,7 +16,6 @@ const CreateCocktailForm = (props: Props) => {
   );
 
   addIngredient = () => {
-    console.log(this.createCocktailForm.getValues());
     const formValues = this.createCocktailForm.getValues();
     const measure =
       formValues.ingredient.amount + " " + formValues.ingredient.unit;
@@ -83,10 +27,13 @@ const CreateCocktailForm = (props: Props) => {
     props.onCocktailIngredientAdded(preparationIngredient);
   };
 
-  addInstructions = () => {
-    console.log(this.createCocktailForm.getValues());
+  valueChanged = () => {
     const formValues = this.createCocktailForm.getValues();
-    props.onInstructionsAdded(formValues.instructions.Instructions);
+    const values = {
+      instructions: formValues.instructions.Instructions,
+      cocktailName: formValues.cocktaillName
+    };
+    props.onDataChanged(values);
   };
 
   const ingredients = props.measures.map((measure, index) => {
@@ -115,8 +62,8 @@ const CreateCocktailForm = (props: Props) => {
             ref={c => {
               this.createCocktailForm = c;
             }}
-            fields={fields}
-            onValueChange={this.addInstructions}
+            fields={createCocktailFormConfig}
+            onValueChange={this.valueChanged}
           />
 
           <Button
