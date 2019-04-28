@@ -1,5 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
 
+export const backgroundColor = "#40e0d0";
+
 export const padding = {
   left: 15,
   right: 15,

@@ -42,9 +42,10 @@ export function deleteCocktail(cocktailID) {
   };
 }
 
-function requestCocktailsAction() {
+function requestCocktailsAction(refreshing) {
   return {
-    type: REQUEST_COCKTAILS
+    type: REQUEST_COCKTAILS,
+    refreshing: refreshing
   };
 }
 
@@ -90,10 +91,13 @@ export function fetchCocktailDetail(cocktailID) {
   };
 }
 
-export function fetchCocktails() {
+export function fetchCocktails(refreshing) {
   return function(dispatch) {
     const query = urlForCocktails();
-    dispatch(requestCocktailsAction());
+    console.log("fetchCocktails");
+
+    console.log(refreshing);
+    dispatch(requestCocktailsAction(refreshing));
     dataHandler = data => {
       if (data._hasError) {
         dispatch(requestCocktailsFailed(data));

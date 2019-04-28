@@ -1,7 +1,11 @@
 import { StyleSheet } from "react-native";
-import { padding, dimensions } from "../common/styles/base.js";
+import { padding, dimensions, backgroundColor } from "../common/styles/base.js";
 
 export default StyleSheet.create({
+  mainContainerView: {
+    flex: 1,
+    backgroundColor: backgroundColor
+  },
   spinner: {
     position: "absolute",
     alignSelf: "center"
@@ -9,7 +13,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#40e0d0",
+    backgroundColor: backgroundColor,
     paddingTop: padding.top,
     paddingLeft: padding.left,
     paddingRight: padding.right,

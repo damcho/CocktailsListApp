@@ -22,6 +22,7 @@ function cocktails(state, action) {
   return {
     ...state,
     isFetching: false,
+    isRefreshing: false,
     cocktails: normalizedCocktailsArray,
     cocktailIds: cocktailIds
   };
@@ -43,11 +44,17 @@ function cocktailsList(state = {}, action) {
   switch (action.type) {
     case REQUEST_COCKTAILS:
     case REQUEST_COCKTAIL_DETAIL:
-      return { ...state, isFetching: true };
+      console.log(action);
+
+      return {
+        ...state,
+        isFetching: !action.refreshing,
+        isRefreshing: action.refreshing
+      };
     case RECEIVE_COCKTAILS:
       return cocktails(state, action);
     case RECEIVE_COCKTAIL_DETAIL:
-      const newState = { ...state, isFetching: false };
+      const newState = { ...state, isFetching: false, isRefreshing: false };
       newState.cocktails[action.cocktail.idDrink] = action.cocktail;
       return newState;
     case CREATE_COCKTAIL:
@@ -72,7 +79,7 @@ function cocktailsList(state = {}, action) {
       delete newState2.cocktails[action.cocktailID];
       return newState2;
     case REQUEST_COCKTAILS_FAILED:
-      return { ...state, isFetching: false };
+      return { ...state, isFetching: false, isRefreshing: false };
 
     default:
       return state;

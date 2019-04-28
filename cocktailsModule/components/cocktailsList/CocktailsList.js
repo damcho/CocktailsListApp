@@ -34,7 +34,7 @@ const CocktailsList = (props: Props) => {
       <FlatList
         refreshControl={
           <RefreshControl
-            refreshing={props.isLoading}
+            refreshing={props.isRefreshing}
             onRefresh={props.onRefreshList}
           />
         }

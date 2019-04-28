@@ -20,11 +20,11 @@ class CocktailsListWrapper extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchCocktails();
+    this.props.fetchCocktails((refreshing = false));
   }
 
   onRefresh = () => {
-    this.props.fetchCocktails();
+    this.props.fetchCocktails((refreshing = true));
   };
 
   onPressItem = index => {
@@ -41,7 +41,7 @@ class CocktailsListWrapper extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.mainContainerView}>
         <CocktailsList
           error={this.props.error}
           data={this.props.cocktails}
@@ -49,6 +49,7 @@ class CocktailsListWrapper extends Component {
           onDeleteItem={this.onDeleteItem}
           isLoading={this.props.isLoading}
           onRefreshList={this.onRefresh}
+          isRefreshing={this.props.isRefreshing}
         />
         <ActionButton
           style={styles.actionButtonIcon}
@@ -69,6 +70,7 @@ const mapStateToProps = state => {
   }
 
   return {
+    isRefreshing: state.cocktailsList.isRefreshing,
     cocktails: cocktailsToList,
     isLoading: state.cocktailsList.isFetching,
     error: state.error
@@ -78,7 +80,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     deleteCocktail: cocktailID => dispatch(deleteCocktail(cocktailID)),
-    fetchCocktails: () => dispatch(fetchCocktails())
+    fetchCocktails: refreshing => dispatch(fetchCocktails(refreshing))
   };
 };
 
