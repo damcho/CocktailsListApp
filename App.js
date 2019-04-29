@@ -4,15 +4,21 @@ import {
   createAppContainer,
   createSwitchNavigator
 } from "react-navigation";
+
 import CocktailsListContainer from "./cocktailsModule/components/cocktailsList/CocktailsListContainer";
 import CocktailDetailContainer from "./cocktailsModule/components/cocktailDetail/CocktailDetailContainer";
 import CreateCocktailFormContainer from "./cocktailsModule/components/createCocktail/CreateCocktailFormContainer";
 import LoginScreenContainer from "./loginModule/LoginScreenContainer";
+
 import { Provider } from "react-redux";
+import { combineReducers } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
 import { createStore, applyMiddleware } from "redux";
-import rootReducer from "./cocktailsModule/reducers/cocktailsModuleReducers";
+
+import cocktailsRootReducer from "./cocktailsModule/reducers/cocktailsModuleReducers";
+import user from "./loginModule/reducers/loginModuleReducers";
+
 console.disableYellowBox = true;
 
 const cocktailsModuleNavigator = createStackNavigator({
@@ -20,6 +26,11 @@ const cocktailsModuleNavigator = createStackNavigator({
   cocktailDetail: { screen: CocktailDetailContainer },
   createCocktail: CreateCocktailFormContainer,
   initialRouteName: "CocktailsList"
+});
+
+const rootReducer = combineReducers({
+  cocktailsRootReducer,
+  user
 });
 
 const switchNavigator = createSwitchNavigator(

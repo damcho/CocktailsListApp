@@ -11,8 +11,8 @@ const LoginScreen = (props: Props) => {
       type: "email",
       name: "email",
       required: true,
-      icon: "ios-person",
-      label: "Username",
+      icon: "ios-mail",
+      label: "E-mail",
       defaultValue: "test@testuser.com"
     },
     {

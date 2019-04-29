@@ -63,17 +63,17 @@ class CocktailsListWrapper extends Component {
 
 const mapStateToProps = state => {
   let cocktailsToList = null;
-  if (state.cocktailsList.cocktailIds) {
-    cocktailsToList = state.cocktailsList.cocktailIds.map(
-      id => state.cocktailsList.cocktails[id]
+  if (state.cocktailsRootReducer.cocktailsList.cocktailIds) {
+    cocktailsToList = state.cocktailsRootReducer.cocktailsList.cocktailIds.map(
+      id => state.cocktailsRootReducer.cocktailsList.cocktails[id]
     );
   }
 
   return {
-    isRefreshing: state.cocktailsList.isRefreshing,
+    isRefreshing: state.cocktailsRootReducer.cocktailsList.isRefreshing,
     cocktails: cocktailsToList,
-    isLoading: state.cocktailsList.isFetching,
-    error: state.error
+    isLoading: state.cocktailsRootReducer.cocktailsList.isFetching,
+    error: state.cocktailsRootReducer.error
   };
 };
 

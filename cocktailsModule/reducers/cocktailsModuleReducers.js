@@ -40,7 +40,14 @@ function error(state = {}, action) {
   }
 }
 
-function cocktailsList(state = {}, action) {
+function cocktailsList(
+  state = {
+    isFetching: false,
+    isRefreshing: false,
+    cocktailIds: []
+  },
+  action
+) {
   switch (action.type) {
     case REQUEST_COCKTAILS:
     case REQUEST_COCKTAIL_DETAIL:
@@ -86,9 +93,9 @@ function cocktailsList(state = {}, action) {
   }
 }
 
-const rootReducer = combineReducers({
+const cocktailsRootReducer = combineReducers({
   cocktailsList,
   error
 });
 
-export default rootReducer;
+export default cocktailsRootReducer;

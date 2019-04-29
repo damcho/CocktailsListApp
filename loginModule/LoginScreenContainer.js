@@ -1,48 +1,38 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import LoginScreen from "./LoginScreen/";
-import firebase from "react-native-firebase";
+import { requestLogin } from "./actions/loginModuleActions";
 
 class LoginScreenWrapper extends Component {
-  state = { isLoading: false, errorMessage: null };
-
-  onLoginSuccess = () => {
-    this.setState({ isLoading: false, errorMessage: null });
-    this.props.navigation.navigate("Home");
-    console.log(firebase.auth());
-  };
-
-  onLoginError = error => {
-    this.setState({ isLoading: false, errorMessage: error.message });
-  };
-  handleLogin = credentials => {
-    const { email, password } = this.state;
-    this.setState({ isLoading: true });
-
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(this.onLoginSuccess)
-      .catch(this.onLoginError);
-  };
+  componentDidUpdate(prevProps) {
+    if (this.props.user != null) {
+      this.props.navigation.navigate("Home");
+    }
+  }
 
   render() {
     return (
       <LoginScreen
-        onLoginButtonPressed={this.handleLogin}
-        loginerror={this.state.errorMessage}
-        isLoading={this.state.isLoading}
+        onLoginButtonPressed={this.props.requestLogin}
+        loginerror={this.props.loggInErrorMessage}
+        isLoading={this.props.isLoggingIn}
       />
     );
   }
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    user: state.user.credentials,
+    isLoggingIn: state.user.isLoggingIn,
+    loggInErrorMessage: state.user.loginError
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    requestLogin: credentials => dispatch(requestLogin(credentials))
+  };
 };
 
 const LoginScreenContainer = connect(
