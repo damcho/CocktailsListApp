@@ -8,7 +8,7 @@ import {
 import CocktailsListContainer from "./cocktailsModule/components/cocktailsList/CocktailsListContainer";
 import CocktailDetailContainer from "./cocktailsModule/components/cocktailDetail/CocktailDetailContainer";
 import CreateCocktailFormContainer from "./cocktailsModule/components/createCocktail/CreateCocktailFormContainer";
-import LoginScreenContainer from "./loginModule/LoginScreenContainer";
+import LoginScreenContainer from "./loginModule/components/loginScreen/LoginScreenContainer";
 
 import { Provider } from "react-redux";
 import { combineReducers } from "redux";

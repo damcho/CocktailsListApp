@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import LoginScreen from "./LoginScreen/";
-import { requestLogin } from "./actions/loginModuleActions";
+import { requestLogin } from "../../actions/loginModuleActions";
 
 class LoginScreenWrapper extends Component {
   componentDidUpdate(prevProps) {

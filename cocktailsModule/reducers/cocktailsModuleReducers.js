@@ -28,14 +28,14 @@ function cocktails(state, action) {
   };
 }
 
-function error(state = {}, action) {
+function error(state = null, action) {
   switch (action.type) {
     case REQUEST_COCKTAILS_FAILED:
       return action.error;
     case CLEAR_ERROR:
       return null;
     default:
-      return null;
+      return state;
   }
 }
 
@@ -77,7 +77,6 @@ function cocktailsList(state = {}, action) {
       return newState2;
     case REQUEST_COCKTAILS_FAILED:
       return { ...state, isFetching: false, isRefreshing: false };
-
     default:
       return state;
   }

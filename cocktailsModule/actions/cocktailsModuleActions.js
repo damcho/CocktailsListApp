@@ -72,6 +72,7 @@ function receivedCocktailDetailAction(json) {
 
 export function fetchCocktailDetail(cocktailID) {
   return function(dispatch, getState) {
+    dispatch(clearError());
     dispatch(requestCocktailDetailAction());
     const query = urlForCocktailsDetail(cocktailID);
     const cocktailDetail = getState().cocktailsRootReducer.cocktailsList
@@ -87,7 +88,7 @@ export function fetchCocktailDetail(cocktailID) {
           dispatch(receivedCocktailDetailAction(data.drinks[0]));
         }
       };
-      return requestCocktails(query, dataHandler);
+      requestCocktails(query, dataHandler);
     }
   };
 }
@@ -95,10 +96,9 @@ export function fetchCocktailDetail(cocktailID) {
 export function fetchCocktails(refreshing) {
   return function(dispatch) {
     const query = urlForCocktails();
-    console.log("fetchCocktails");
-
-    console.log(refreshing);
+    dispatch(clearError());
     dispatch(requestCocktailsAction(refreshing));
+
     dataHandler = data => {
       if (data._hasError) {
         dispatch(requestCocktailsFailed(data));
@@ -106,6 +106,6 @@ export function fetchCocktails(refreshing) {
         dispatch(receivedCocktailsAction(data));
       }
     };
-    return requestCocktails(query, dataHandler);
+    requestCocktails(query, dataHandler);
   };
 }
