@@ -31,7 +31,6 @@ function cocktails(state, action) {
 function error(state = {}, action) {
   switch (action.type) {
     case REQUEST_COCKTAILS_FAILED:
-      console.log(action.error);
       return action.error;
     case CLEAR_ERROR:
       return null;
@@ -40,19 +39,10 @@ function error(state = {}, action) {
   }
 }
 
-function cocktailsList(
-  state = {
-    isFetching: false,
-    isRefreshing: false,
-    cocktailIds: []
-  },
-  action
-) {
+function cocktailsList(state = {}, action) {
   switch (action.type) {
     case REQUEST_COCKTAILS:
     case REQUEST_COCKTAIL_DETAIL:
-      console.log(action);
-
       return {
         ...state,
         isFetching: !action.refreshing,

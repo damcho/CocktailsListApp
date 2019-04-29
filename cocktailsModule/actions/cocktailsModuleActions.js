@@ -74,7 +74,8 @@ export function fetchCocktailDetail(cocktailID) {
   return function(dispatch, getState) {
     dispatch(requestCocktailDetailAction());
     const query = urlForCocktailsDetail(cocktailID);
-    const cocktailDetail = getState().cocktailsList.cocktails[cocktailID];
+    const cocktailDetail = getState().cocktailsRootReducer.cocktailsList
+      .cocktails[cocktailID];
     if (cocktailDetail.strInstructions != null) {
       dispatch(receivedCocktailDetailAction(cocktailDetail));
       return null;

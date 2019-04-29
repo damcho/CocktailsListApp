@@ -47,8 +47,9 @@ createIngredients = data => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  console.log("mapStateToProps");
   const cocktailDetail =
-    state.cocktailsList.cocktails[
+    state.cocktailsRootReducer.cocktailsList.cocktails[
       ownProps.navigation.state.params["cocktailId"]
     ];
   const ingredients = createIngredients(cocktailDetail);
@@ -56,7 +57,7 @@ const mapStateToProps = (state, ownProps) => {
     cocktailImageUri: cocktailDetail.strDrinkThumb,
     ingredients: ingredients,
     instructions: cocktailDetail.strInstructions,
-    isLoading: state.cocktailsList.isFetching
+    isLoading: state.cocktailsRootReducer.cocktailsList.isFetching
   };
 };
 

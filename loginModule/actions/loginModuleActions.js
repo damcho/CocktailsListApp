@@ -27,7 +27,7 @@ function loginSuccess(firebaseUser) {
   console.log("loginSuccess");
   return {
     type: LOGIN_SUCCESS,
-    credentials: { email: firebaseUser.email }
+    credentials: { email: firebaseUser.user.email }
   };
 }
 
