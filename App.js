@@ -1,43 +1,32 @@
 import React from "react";
-import {
-  createStackNavigator,
-  createAppContainer,
-  createSwitchNavigator
-} from "react-navigation";
+import { createStackNavigator, createAppContainer } from "react-navigation";
 import CocktailsListContainer from "./cocktailsModule/components/cocktailsList/CocktailsListContainer";
 import CocktailDetailContainer from "./cocktailsModule/components/cocktailDetail/CocktailDetailContainer";
 import CreateCocktailFormContainer from "./cocktailsModule/components/createCocktail/CreateCocktailFormContainer";
-import LoginScreenContainer from "./loginModule/LoginScreenContainer";
+
 import { Provider } from "react-redux";
+
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
 import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./cocktailsModule/reducers/cocktailsModuleReducers";
-console.disableYellowBox = true;
 
-const cocktailsModuleNavigator = createStackNavigator({
+const MainNavigator = createStackNavigator({
   Home: { screen: CocktailsListContainer },
   cocktailDetail: { screen: CocktailDetailContainer },
   createCocktail: CreateCocktailFormContainer,
   initialRouteName: "CocktailsList"
 });
-
-const switchNavigator = createSwitchNavigator(
-  {
-    LoginScreenContainer,
-    cocktailsModuleNavigator
-  },
-  {
-    initialRouteName: "LoginScreenContainer"
-  }
-);
-
-const AppContainer = createAppContainer(switchNavigator);
+const AppContainer = createAppContainer(MainNavigator);
+console.disableYellowBox = true;
 const loggerMiddleware = createLogger();
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunkMiddleware, loggerMiddleware)
+  applyMiddleware(
+    thunkMiddleware, // lets us dispatch() functions
+    loggerMiddleware // neat middleware that logs actions
+  )
 );
 
 export default class App extends React.Component {

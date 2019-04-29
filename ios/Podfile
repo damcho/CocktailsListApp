@@ -7,7 +7,7 @@ target 'reactHelloWorld' do
 
   # Pods for reactHelloWorld
 	pod 'Firebase/Core'
-	pod 'Firebase/Auth'
+
 
   target 'reactHelloWorld-tvOSTests' do
     inherit! :search_paths
