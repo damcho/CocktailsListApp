@@ -4,22 +4,43 @@ import {
   deleteCocktail
 } from "../../actions/cocktailsModuleActions";
 import React, { Component } from "react";
-import { View, LayoutAnimation } from "react-native";
+import { View, LayoutAnimation, Text } from "react-native";
 import CocktailsList from "./CocktailsList";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ActionButton from "react-native-action-button";
 import styles from "./CocktailsList.styles.js";
 
 class CocktailsListWrapper extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Cocktails List"
-  });
+  static navigationOptions = ({ navigation }) => {
+    const userIcon = navigation.getParam("user") ? (
+      <Icon.Button
+        name="account-circle"
+        backgroundColor="transparent"
+        underlayColor="transparent"
+        color="black"
+        size={30}
+        onPress={navigation.getParam("onUserProfileTapped")}
+      />
+    ) : null;
+    return {
+      headerTitle: "Cocktails List",
+      headerRight: userIcon
+    };
+  };
+
+  onUserProfileTapped = () => {
+    console.log("profile icon tapped");
+  };
 
   onAddCocktailPress = () => {
     this.props.navigation.navigate("createCocktail");
   };
 
   componentDidMount() {
+    this.props.navigation.setParams({
+      user: this.props.user,
+      onUserProfileTapped: this.onUserProfileTapped
+    });
     this.props.fetchCocktails((refreshing = false));
   }
 
@@ -73,7 +94,8 @@ const mapStateToProps = state => {
     isRefreshing: state.cocktailsRootReducer.cocktailsList.isRefreshing,
     cocktails: cocktailsToList,
     isLoading: state.cocktailsRootReducer.cocktailsList.isFetching,
-    error: state.cocktailsRootReducer.error
+    error: state.cocktailsRootReducer.error,
+    user: state.user.credentials
   };
 };
 
