@@ -58,7 +58,7 @@ function cocktailsList(state = {}, action) {
       const cocktailId = action.cocktail.idDrink;
       const normalizedcocktails = { ...state.cocktails };
       normalizedcocktails[cocktailId] = action.cocktail;
-      const cocktailIds = [...state.cocktailIds, cocktailId];
+      const cocktailIds = [cocktailId, ...state.cocktailIds];
       return {
         ...state,
         cocktailIds: cocktailIds,
