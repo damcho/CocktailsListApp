@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>472823670446-u1frj661fms76r9c5svc3j3buhqn635j.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.472823670446-u1frj661fms76r9c5svc3j3buhqn635j</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDso7JrCgHx-Wayskm4ikkwX-pqFzTmgBU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>472823670446</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.damian.cocktailsReactNative</string>
+	<key>PROJECT_ID</key>
+	<string>cocktailsreactnativeapp</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cocktailsreactnativeapp.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:472823670446:ios:01c4e2a0e527dd43</string>
+	<key>DATABASE_URL</key>
+	<string>https://cocktailsreactnativeapp.firebaseio.com</string>
+</dict>
+</plist>

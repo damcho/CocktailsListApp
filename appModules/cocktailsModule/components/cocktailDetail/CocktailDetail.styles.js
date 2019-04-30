@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { padding, dimensions, backgroundColor } from "../common/styles/base.js";
 
 export default StyleSheet.create({
   spinner: {
@@ -8,11 +9,11 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#40e0d0",
-    paddingTop: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingBottom: 15
+    backgroundColor: backgroundColor,
+    paddingTop: padding.top,
+    paddingLeft: padding.left,
+    paddingRight: padding.right,
+    paddingBottom: padding.bottom
   },
   cocktailImage: {
     height: 270,
@@ -34,6 +35,6 @@ export default StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     justifyContent: "space-between",
-    backgroundColor: "#ffffff"
+    backgroundColor: "white"
   }
 });
