@@ -4,7 +4,7 @@ import {
   deleteCocktail
 } from "../../actions/cocktailsModuleActions";
 import React, { Component } from "react";
-import { View, LayoutAnimation, Text } from "react-native";
+import { View, LayoutAnimation, Text, Animated } from "react-native";
 import CocktailsList from "./CocktailsList";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ActionButton from "react-native-action-button";
@@ -28,6 +28,10 @@ class CocktailsListWrapper extends Component {
     };
   };
 
+  state = {
+    fadeAnim: new Animated.Value(0)
+  };
+
   onUserProfileTapped = () => {
     console.log("profile icon tapped");
   };
@@ -42,6 +46,11 @@ class CocktailsListWrapper extends Component {
       onUserProfileTapped: this.onUserProfileTapped
     });
     this.props.fetchCocktails((refreshing = false));
+
+    Animated.timing(this.state.fadeAnim, {
+      toValue: 1,
+      duration: 1500
+    }).start();
   }
 
   onRefresh = () => {
@@ -61,8 +70,10 @@ class CocktailsListWrapper extends Component {
   };
 
   render() {
+    let { fadeAnim } = this.state;
+
     return (
-      <View style={styles.mainContainerView}>
+      <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
         <CocktailsList
           error={this.props.error}
           data={this.props.cocktails}
@@ -77,7 +88,7 @@ class CocktailsListWrapper extends Component {
           buttonColor="rgba(231,76,60,1)"
           onPress={this.onAddCocktailPress}
         />
-      </View>
+      </Animated.View>
     );
   }
 }

@@ -3,6 +3,9 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   wrapper: {
     flex: 1,
+    backgroundColor: "#40e0d0"
+  },
+  loginFormContainer: {
     marginTop: 150
   },
   submitButton: {
@@ -10,7 +13,7 @@ export default StyleSheet.create({
     paddingTop: 20
   },
   spinner: {
-    position: "absolute",
-    alignSelf: "center"
+    justifyContent: "center",
+    alignItems: "center"
   }
 });

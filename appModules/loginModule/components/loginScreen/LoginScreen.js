@@ -43,7 +43,7 @@ const LoginScreen = (props: Props) => {
 
   return (
     <View style={styles.wrapper}>
-      <View>
+      <View style={styles.loginFormContainer}>
         <GenerateForm
           ref={c => {
             this.formGenerator = c;

@@ -16,15 +16,14 @@ export default StyleSheet.create({
     paddingBottom: padding.bottom
   },
   cocktailImage: {
-    height: 270,
-    width: 270
+    width: "100%",
+    height: 200,
+    resizeMode: "contain"
   },
   ingredientsContainer: {
-    flex: 1,
     marginTop: 15
   },
   instructionsContainer: {
-    flex: 1,
     marginTop: 15
   },
   scrollView: {
@@ -34,7 +33,6 @@ export default StyleSheet.create({
     flexGrow: 1,
     paddingLeft: 10,
     paddingRight: 10,
-    justifyContent: "space-between",
     backgroundColor: "white"
   }
 });
