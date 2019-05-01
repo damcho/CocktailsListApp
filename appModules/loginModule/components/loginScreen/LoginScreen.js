@@ -1,6 +1,6 @@
 import GenerateForm from "react-native-form-builder";
 import { View, Text, Button } from "native-base";
-import { Alert, ActivityIndicator } from "react-native";
+import { Image, Alert, ActivityIndicator } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import React, { Component } from "react";
 import styles from "./LoginScreen.styles.js";
@@ -43,6 +43,10 @@ const LoginScreen = (props: Props) => {
 
   return (
     <View style={styles.wrapper}>
+      <Image
+        source={require("./img/cocktailImage.png")}
+        style={styles.cocktailImage}
+      />
       <View style={styles.loginFormContainer}>
         <GenerateForm
           ref={c => {

@@ -18,6 +18,5 @@ export default StyleSheet.create({
     paddingLeft: padding.left,
     paddingRight: padding.right,
     paddingBottom: padding.bottom
-  },
-  flatlist: {}
+  }
 });

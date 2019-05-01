@@ -5,9 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: "#40e0d0"
   },
-  loginFormContainer: {
-    marginTop: 150
-  },
+  loginFormContainer: {},
   submitButton: {
     paddingHorizontal: 10,
     paddingTop: 20
@@ -15,5 +13,10 @@ export default StyleSheet.create({
   spinner: {
     justifyContent: "center",
     alignItems: "center"
+  },
+  cocktailImage: {
+    width: "100%",
+    height: 300,
+    resizeMode: "contain"
   }
 });

@@ -18,11 +18,9 @@ class CreateCocktailFormContainerWrapper extends Component {
       ingredients: [],
       measures: [],
       instructions: "",
-      shouldEnableCreateCocktail: true
+      shouldEnableCreateCocktail: false
     };
   }
-
-  componentDidMount() {}
 
   validateCoctail = () => {
     const shouldEnableCreateButton =
@@ -36,7 +34,6 @@ class CreateCocktailFormContainerWrapper extends Component {
     this.setState({
       shouldEnableCreateCocktail: shouldEnableCreateButton
     });
-    console.log(this.state);
   };
 
   onCocktailIngredientAdded = ingredient => {

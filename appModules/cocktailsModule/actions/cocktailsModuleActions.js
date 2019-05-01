@@ -77,9 +77,10 @@ export function fetchCocktailDetail(cocktailID) {
     const query = urlForCocktailsDetail(cocktailID);
     const cocktailDetail = getState().cocktailsRootReducer.cocktailsList
       .cocktails[cocktailID];
+
+    //If instructions are available we don't request detail data
     if (cocktailDetail.strInstructions != null) {
       dispatch(receivedCocktailDetailAction(cocktailDetail));
-      return null;
     } else {
       dataHandler = data => {
         if (data._hasError) {
