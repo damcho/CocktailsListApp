@@ -6,7 +6,7 @@ import { requestLogin } from "../../actions/loginModuleActions";
 class LoginScreenWrapper extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.user != null) {
-      this.props.navigation.navigate("Home");
+      this.props.navigation.navigate("cocktailsList");
     }
   }
 
@@ -24,8 +24,8 @@ class LoginScreenWrapper extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user.credentials,
-    isLoggingIn: state.user.isLoggingIn,
-    loggInErrorMessage: state.user.loginError
+    isLoggingIn: state.user.loading,
+    loggInErrorMessage: state.user.authError
   };
 };
 

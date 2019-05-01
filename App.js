@@ -10,6 +10,8 @@ import CocktailDetailContainer from "./appModules/cocktailsModule/components/coc
 import CreateCocktailFormContainer from "./appModules/cocktailsModule/components/createCocktail/CreateCocktailFormContainer";
 import LoginScreenContainer from "./appModules/loginModule/components/loginScreen/LoginScreenContainer";
 
+import ProfileScreenContainer from "./appModules/loginModule/components/profileScreen/ProfileScreenContainer";
+
 import { Provider } from "react-redux";
 import { combineReducers } from "redux";
 import thunkMiddleware from "redux-thunk";
@@ -21,27 +23,42 @@ import user from "./appModules/loginModule/reducers/loginModuleReducers";
 
 console.disableYellowBox = true;
 
-const cocktailsModuleNavigator = createStackNavigator({
-  Home: { screen: CocktailsListContainer },
-  cocktailDetail: { screen: CocktailDetailContainer },
-  createCocktail: CreateCocktailFormContainer,
-  initialRouteName: "CocktailsList"
-});
+const cocktailsModuleNavigator = createStackNavigator(
+  {
+    cocktailsList: { screen: CocktailsListContainer },
+    cocktailDetail: { screen: CocktailDetailContainer },
+    createCocktail: { screen: CreateCocktailFormContainer }
+  },
+  {
+    initialRouteName: "cocktailsList"
+  }
+);
 
-const rootReducer = combineReducers({
-  cocktailsRootReducer,
-  user
-});
+const mainStackNavigator = createStackNavigator(
+  {
+    cocktailsModuleNavigator: { screen: cocktailsModuleNavigator },
+    userProfile: { screen: ProfileScreenContainer }
+  },
+  {
+    mode: "modal",
+    headerMode: "none"
+  }
+);
 
 const switchNavigator = createSwitchNavigator(
   {
     LoginScreenContainer,
-    cocktailsModuleNavigator
+    mainStackNavigator
   },
   {
     initialRouteName: "LoginScreenContainer"
   }
 );
+
+const rootReducer = combineReducers({
+  cocktailsRootReducer,
+  user
+});
 
 const AppContainer = createAppContainer(switchNavigator);
 const loggerMiddleware = createLogger();

@@ -33,10 +33,10 @@ class CocktailsListWrapper extends Component {
   };
 
   onUserProfileTapped = () => {
-    console.log("profile icon tapped");
+    this.props.navigation.navigate("userProfile");
   };
 
-  onAddCocktailPress = () => {
+  onAddCocktailTapped = () => {
     this.props.navigation.navigate("createCocktail");
   };
 
@@ -57,7 +57,7 @@ class CocktailsListWrapper extends Component {
     this.props.fetchCocktails((refreshing = true));
   };
 
-  onPressItem = index => {
+  onItemTapped = index => {
     this.props.navigation.navigate("cocktailDetail", {
       cocktailTitle: this.props.cocktails[index].strDrink,
       cocktailId: this.props.cocktails[index].idDrink
@@ -77,7 +77,7 @@ class CocktailsListWrapper extends Component {
         <CocktailsList
           error={this.props.error}
           data={this.props.cocktails}
-          onPressItem={this.onPressItem}
+          onPressItem={this.onItemTapped}
           onDeleteItem={this.onDeleteItem}
           isLoading={this.props.isLoading}
           onRefreshList={this.onRefresh}
@@ -86,7 +86,7 @@ class CocktailsListWrapper extends Component {
         <ActionButton
           style={styles.actionButtonIcon}
           buttonColor="rgba(231,76,60,1)"
-          onPress={this.onAddCocktailPress}
+          onPress={this.onAddCocktailTapped}
         />
       </Animated.View>
     );
