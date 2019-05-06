@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "472823670446",
+    "firebase_url": "https://cocktailsreactnativeapp.firebaseio.com",
+    "project_id": "cocktailsreactnativeapp",
+    "storage_bucket": "cocktailsreactnativeapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472823670446:android:1f67499941732d47",
+        "android_client_info": {
+          "package_name": "com.damcho.cocktailsApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472823670446-tcgm00mh9q70t4n7htj70lvecqcthe8d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjnP4uPw7ZI9Hu172ab8CVhsyp_dsBZ_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472823670446-tcgm00mh9q70t4n7htj70lvecqcthe8d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "472823670446-u1frj661fms76r9c5svc3j3buhqn635j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.damian.cocktailsReactNative"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
