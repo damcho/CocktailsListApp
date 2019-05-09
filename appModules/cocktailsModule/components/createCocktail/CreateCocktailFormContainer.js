@@ -14,7 +14,7 @@ class CreateCocktailFormContainerWrapper extends Component {
     this.state = {
       id: null,
       cocktailName: null,
-      thumbImage: "",
+      thumbImage: null,
       ingredients: [],
       measures: [],
       instructions: "",

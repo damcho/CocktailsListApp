@@ -17,7 +17,7 @@ const CocktailDetail = (props: Props) => {
     <ActivityIndicator size="large" style={styles.spinner} />
   ) : null;
 
-  const cocktailImage = props.cocktailImageUri ? (
+  const cocktailImage = (
     <AsyncImage
       style={styles.cocktailImage}
       source={{
@@ -25,7 +25,7 @@ const CocktailDetail = (props: Props) => {
       }}
       placeholderColor="#b3e5fc"
     />
-  ) : null;
+  );
 
   const ingredientsTitle =
     props.ingredients != null ? <Text>Ingredients:</Text> : null;

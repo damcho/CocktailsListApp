@@ -19,6 +19,7 @@ const CocktailsListItem = (props: Props) => {
       <Text style={styles.deleteCellButtonText}>DELETE</Text>
     </TouchableHighlight>
   ];
+
   return (
     <Swipeable leftContent={leftContent} rightButtons={rightButtons}>
       <TouchableHighlight onPress={onItemPressed} underlayColor="#dddddd">

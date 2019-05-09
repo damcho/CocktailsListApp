@@ -37,7 +37,11 @@ export default class AsyncImage extends Component {
     return (
       <View style={style}>
         <Image
-          source={source}
+          source={
+            this.props.source.uri != null
+              ? this.props.source
+              : require("./img/default-drink.png")
+          }
           resizeMode={"contain"}
           style={[
             style,
