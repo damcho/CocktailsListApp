@@ -63,10 +63,36 @@ function receivedCocktailsAction(json) {
   };
 }
 
-function receivedCocktailDetailAction(json) {
+function parseResponse(json) {
+  const measures = [];
+  const beverages = [];
+  var i;
+  let key;
+  for (i = 1; i < 6; i++) {
+    key = "strMeasure" + i;
+    mesure = json[key];
+    measures.push(mesure);
+  }
+  key = "strIngredient";
+  for (i = 1; i < 6; i++) {
+    key = "strIngredient" + i;
+    beverage = json[key];
+    beverages.push(beverage);
+  }
+  const cocktailDetail = {
+    measures: measures,
+    beverages: beverages,
+    idDrink: json.idDrink,
+    strDrinkThumb: json.strDrinkThumb,
+    strInstructions: json.strInstructions
+  };
+  return cocktailDetail;
+}
+
+function receivedCocktailDetailAction(cocktailDetail) {
   return {
     type: RECEIVE_COCKTAIL_DETAIL,
-    cocktail: json
+    cocktail: cocktailDetail
   };
 }
 
@@ -86,7 +112,8 @@ export function fetchCocktailDetail(cocktailID) {
         if (data._hasError) {
           dispatch(requestCocktailsFailed(data));
         } else {
-          dispatch(receivedCocktailDetailAction(data.drinks[0]));
+          const cocktailDetail = parseResponse(data.drinks[0]);
+          dispatch(receivedCocktailDetailAction(cocktailDetail));
         }
       };
       requestCocktails(query, dataHandler);

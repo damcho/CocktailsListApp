@@ -33,16 +33,13 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-createIngredients = data => {
+createIngredients = (measures, beverages) => {
   const ingredientsArray = [];
-  for (let i = 0; i < 5; i++) {
-    let ingredientkey = "strIngredient" + i;
-    let amountkey = "strMeasure" + i;
-    if (data[amountkey] != null && data[amountkey] != "") {
-      let preparationIngredient = data[amountkey] + data[ingredientkey];
-      ingredientsArray.push(preparationIngredient);
-    }
+  for (let i = 0; i < measures.length; i++) {
+    let preparationIngredient = measures[i] + "of " + beverages[i];
+    ingredientsArray.push(preparationIngredient);
   }
+
   return ingredientsArray;
 };
 
@@ -52,7 +49,14 @@ const mapStateToProps = (state, ownProps) => {
     state.cocktailsRootReducer.cocktailsList.cocktails[
       ownProps.navigation.state.params["cocktailId"]
     ];
-  const ingredients = createIngredients(cocktailDetail);
+  let ingredients = null;
+  if (cocktailDetail.measures != null && cocktailDetail.beverages != null) {
+    ingredients = createIngredients(
+      cocktailDetail.measures,
+      cocktailDetail.beverages
+    );
+  }
+
   return {
     cocktailImageUri: cocktailDetail.strDrinkThumb,
     ingredients: ingredients,

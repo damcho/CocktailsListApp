@@ -63,13 +63,14 @@ class CreateCocktailFormContainerWrapper extends Component {
   onCreateCocktailPressed = () => {
     const randomId = 100000 + Math.floor(Math.random() * (100000 - 10000));
     const cocktail = {
-      idDrink: randomId,
+      idDrink: randomId.toString(),
       strDrink: this.state.cocktailName,
       strDrinkThumb: this.state.thumbImage,
       strInstructions: this.state.instructions,
-      strIngredient1: this.state.ingredients[0],
-      strMeasure1: this.state.measures[0]
+      beverages: this.state.ingredients,
+      measures: this.state.measures
     };
+
     this.props.createCocktail(cocktail);
     this.props.navigation.goBack();
   };
