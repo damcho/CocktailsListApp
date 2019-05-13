@@ -80,6 +80,7 @@ function parseResponse(json) {
     beverages.push(beverage);
   }
   const cocktailDetail = {
+    strDrink: json.strDrink,
     measures: measures,
     beverages: beverages,
     idDrink: json.idDrink,
