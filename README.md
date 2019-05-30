@@ -12,7 +12,7 @@
 
 ## Dependencies used
 
-### - Axios ( for API connection)
+### - axios ( for API connection)
 ### - redux (for keeping global state of the app)
 ### - redux-thunk (for async action triggering )
 ### - react-navigation
@@ -24,6 +24,7 @@
 ### - react-native-action-button
 
 ### - react-native-firebase (for login auth)
+### - react-native-sha256
 
 ## Installation iOS
 
