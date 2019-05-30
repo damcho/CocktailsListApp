@@ -8,6 +8,7 @@ target 'reactHelloWorld' do
   # Pods for reactHelloWorld
 	pod 'Firebase/Core'
 	pod 'Firebase/Auth'
+    pod 'RNSha256', :path => '../node_modules/react-native-sha256'
 
   target 'reactHelloWorld-tvOSTests' do
     inherit! :search_paths
