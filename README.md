@@ -41,5 +41,9 @@ pod install
 ```
 ### (This will download and install Firebase in the ios project and create a workspace file)
 
-### 4. open workspace file and run app from xcode
+### 4.Link node modules with native code
+```
+react-native link
+```
+### 5. open workspace file and run app from xcode
 
