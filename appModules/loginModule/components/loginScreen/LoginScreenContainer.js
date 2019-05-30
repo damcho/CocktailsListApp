@@ -1,7 +1,10 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import LoginScreen from "./LoginScreen/";
-import { requestLogin } from "../../actions/loginModuleActions";
+import {
+  requestLogin,
+  checkUserLogedIn
+} from "../../actions/loginModuleActions";
 import { sha256 } from "react-native-sha256";
 
 class LoginScreenWrapper extends Component {
@@ -11,7 +14,12 @@ class LoginScreenWrapper extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.checkUserLogedIn();
+  }
+
   hashPassword = credentials => {
+    const salt = "salt";
     sha256(credentials.password).then(hash => {
       this.props.requestLogin({
         email: credentials.email,
@@ -41,7 +49,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    requestLogin: credentials => dispatch(requestLogin(credentials))
+    requestLogin: credentials => dispatch(requestLogin(credentials)),
+    checkUserLogedIn: () => dispatch(checkUserLogedIn())
   };
 };
 

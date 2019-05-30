@@ -9,8 +9,6 @@ export const SIGN_OUT_SUCCESS = "SIGN_OUT_SUCCESS";
 export const SIGN_OUT_ERROR = "SIGN_OUT_SUCCESS";
 
 function loginRequestInProgress(credentials) {
-  console.log("loginRequestInProgress");
-
   return {
     type: REQUEST_LOGIN,
     credentials: credentials
@@ -18,9 +16,6 @@ function loginRequestInProgress(credentials) {
 }
 
 function loginFailed(error) {
-  console.log("loginFailed");
-  console.log(error);
-
   return {
     type: LOGIN_FAILURE,
     error: error
@@ -29,9 +24,10 @@ function loginFailed(error) {
 
 function loginSuccess(firebaseUser) {
   console.log("loginSuccess");
+  console.log(firebaseUser);
   return {
     type: LOGIN_SUCCESS,
-    credentials: { email: firebaseUser.user.email }
+    user: firebaseUser
   };
 }
 function signOutSuccess() {
@@ -51,8 +47,21 @@ function signOutError(error) {
   };
 }
 
+export function checkUserLogedIn() {
+  console.log("checkUserLogedIn");
+  return function(dispatch, getState) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user != null) {
+        dispatch(loginSuccess(user));
+      } else {
+        dispatch(signOutSuccess());
+      }
+    });
+  };
+}
+
 export function requestSignOut() {
-  console.log("request sign out");
+  console.log("request log out");
   return function(dispatch, getState) {
     firebase
       .auth()

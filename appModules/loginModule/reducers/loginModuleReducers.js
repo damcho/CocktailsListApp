@@ -15,7 +15,7 @@ export default function user(state = {}, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        credentials: action.credentials,
+        credentials: action.user,
         loading: false,
         authError: null
       };
